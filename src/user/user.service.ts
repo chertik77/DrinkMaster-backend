@@ -73,9 +73,9 @@ export class UserService {
   }
 
   async sendSubscriptionEmail(email: string) {
-    const user = await this.userModel.findOne({ email })
+    // const user = await this.userModel.findOne({ email })
 
-    if (!user) throw new NotFoundException('User not found')
+    // if (!user) throw new NotFoundException('User not found')
 
     await this.mailerService.sendMail({
       to: email,

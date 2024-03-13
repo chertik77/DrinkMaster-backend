@@ -57,7 +57,7 @@ export class UserController {
   @HttpCode(200)
   @Post('subscribe')
   @ApiCreatedResponse(UserLetterResponseExample)
-  @ApiOperation({ summary: 'Subscribe to newsletter' })
+  @ApiOperation({ summary: 'Subscribe to our newsletter' })
   @ApiBody({
     schema: {
       type: 'object',

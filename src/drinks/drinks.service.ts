@@ -38,23 +38,11 @@ export class DrinksService {
 
     const skip = (page - 1) * limit
 
-    const query = this.drinkModel.find()
-
-    if (!isUser18YearsOld) {
-      query.where('alcoholic').equals('Non alcoholic')
-    }
-
-    if (drinkName) {
-      query.where('drink').equals(new RegExp(drinkName, 'i'))
-    }
-
-    if (category) {
-      query.where('category').equals(category)
-    }
-
-    if (ingredient) {
-      query.where('ingredients.title').equals(ingredient)
-    }
+    const query = this.buildQuery(isUser18YearsOld, {
+      drinkName,
+      category,
+      ingredient
+    })
 
     const total = await query.clone().countDocuments()
     const totalPages = Math.ceil(total / limit)
@@ -171,5 +159,22 @@ export class DrinksService {
     if (!drinkById) throw new NotFoundException('Drink not found')
 
     return drinkById
+  }
+
+  private buildQuery(
+    isUser18YearsOld: boolean,
+    { drinkName, category, ingredient }: SearchDrinksDto
+  ) {
+    const query = this.drinkModel.find()
+
+    if (!isUser18YearsOld) query.where('alcoholic').equals('Non alcoholic')
+
+    if (drinkName) query.where('drink').equals(new RegExp(drinkName, 'i'))
+
+    if (category) query.where('category').equals(category)
+
+    if (ingredient) query.where('ingredients.title').equals(ingredient)
+
+    return query
   }
 }
