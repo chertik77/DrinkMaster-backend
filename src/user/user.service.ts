@@ -47,8 +47,8 @@ export class UserService {
     return user
   }
 
-  async findById(id: string) {
-    return await this.userModel.findById(id)
+  findById(id: string) {
+    return this.userModel.findById(id)
   }
 
   findOneByEmail(email: string) {
@@ -73,9 +73,9 @@ export class UserService {
   }
 
   async sendSubscriptionEmail(email: string) {
-    // const user = await this.userModel.findOne({ email })
+    const user = await this.findOneByEmail(email)
 
-    // if (!user) throw new NotFoundException('User not found')
+    if (!user) throw new NotFoundException('User not found')
 
     await this.mailerService.sendMail({
       to: email,
