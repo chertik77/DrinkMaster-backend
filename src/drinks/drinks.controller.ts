@@ -22,6 +22,7 @@ import {
   ApiUnauthorizedResponse
 } from '@nestjs/swagger'
 
+import { CurrentUser } from 'decorators/user.decorator'
 import {
   DrinkByIdResponseExample,
   DrinkInFavoritesBadRequestResponseExample,
@@ -36,12 +37,7 @@ import {
 import { Auth } from 'guards/auth.guard'
 
 import { DrinksService } from './drinks.service'
-import {
-  CheckUserIdDto,
-  FavoriteDrinkDto,
-  OwnDrinkDto,
-  SearchDrinksDto
-} from './dto/drink.dto'
+import { FavoriteDrinkDto, OwnDrinkDto, SearchDrinksDto } from './dto/drink.dto'
 import { CreateOwnDrinkDto } from './dto/own-drink.dto'
 
 @Controller('drinks')
@@ -66,9 +62,9 @@ export class DrinksController {
       })
     )
     query: SearchDrinksDto,
-    @Body() dto: CheckUserIdDto
+    @CurrentUser('id') userId: string
   ) {
-    return this.drinksService.getAllDrinks(query, dto)
+    return this.drinksService.getAllDrinks(query, userId)
   }
 
   @Get('own')
@@ -76,8 +72,8 @@ export class DrinksController {
   @ApiOperation({ summary: 'Get all own drinks' })
   @ApiOkResponse(DrinkByIdResponseExample)
   @ApiNotFoundResponse(UserNotFoundResponseExample)
-  getAllOwnDrinks(@Body() dto: CheckUserIdDto) {
-    return this.drinksService.getAllOwnDrinks(dto)
+  getAllOwnDrinks(@CurrentUser('id') userId: string) {
+    return this.drinksService.getAllOwnDrinks(userId)
   }
 
   @Get('popular')
@@ -93,8 +89,11 @@ export class DrinksController {
   @ApiCreatedResponse(OwnDrinkResponseExample)
   @ApiBadRequestResponse(UserIsNot18YearsOldResponseExample)
   @ApiNotFoundResponse(UserNotFoundResponseExample)
-  addOwnDrink(@Body() dto: CreateOwnDrinkDto) {
-    return this.drinksService.addOwnDrink(dto)
+  addOwnDrink(
+    @Body() dto: CreateOwnDrinkDto,
+    @CurrentUser('id') userId: string
+  ) {
+    return this.drinksService.addOwnDrink(dto, userId)
   }
 
   @UsePipes(new ValidationPipe())
@@ -103,8 +102,8 @@ export class DrinksController {
   @ApiOperation({ summary: 'Remove own drink' })
   @ApiNoContentResponse({ description: 'No content' })
   @ApiNotFoundResponse(UserNotFoundResponseExample)
-  removeOwnDrink(@Body() dto: OwnDrinkDto) {
-    return this.drinksService.removeOwnDrink(dto)
+  removeOwnDrink(@Body() dto: OwnDrinkDto, @CurrentUser('id') userId: string) {
+    return this.drinksService.removeOwnDrink(dto, userId)
   }
 
   @UsePipes(new ValidationPipe())
@@ -112,8 +111,8 @@ export class DrinksController {
   @ApiOperation({ summary: 'Get all favorite drinks' })
   @ApiOkResponse(DrinkByIdResponseExample)
   @ApiNotFoundResponse(UserNotFoundResponseExample)
-  async getAllFavorites(@Body() dto: CheckUserIdDto) {
-    return this.drinksService.getAllFavoriteDrinks(dto)
+  async getAllFavorites(@CurrentUser('id') userId: string) {
+    return this.drinksService.getAllFavoriteDrinks(userId)
   }
 
   @UsePipes(new ValidationPipe())
@@ -122,8 +121,11 @@ export class DrinksController {
   @ApiCreatedResponse(DrinkByIdResponseExample)
   @ApiBadRequestResponse(DrinkInFavoritesBadRequestResponseExample)
   @ApiNotFoundResponse(UserNotFoundResponseExample)
-  async addToFavorites(@Body() dto: FavoriteDrinkDto) {
-    return this.drinksService.addDrinkToFavorite(dto)
+  async addToFavorites(
+    @Body() dto: FavoriteDrinkDto,
+    @CurrentUser('id') userId: string
+  ) {
+    return this.drinksService.addDrinkToFavorite(dto, userId)
   }
 
   @UsePipes(new ValidationPipe())
@@ -132,8 +134,11 @@ export class DrinksController {
   @ApiOperation({ summary: 'Remove drink from favorites' })
   @ApiNoContentResponse({ description: 'No content' })
   @ApiNotFoundResponse(UserNotFoundResponseExample)
-  removeDrinkFromFavorite(@Body() dto: FavoriteDrinkDto) {
-    return this.drinksService.removeDrinkFromFavorite(dto)
+  removeDrinkFromFavorite(
+    @Body() dto: FavoriteDrinkDto,
+    @CurrentUser('id') userId: string
+  ) {
+    return this.drinksService.removeDrinkFromFavorite(dto, userId)
   }
 
   @Get(':id')

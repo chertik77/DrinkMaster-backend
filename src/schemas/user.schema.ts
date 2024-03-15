@@ -1,6 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 
+import { HydratedDocument } from 'mongoose'
 import isEmail from 'validator/lib/isEmail'
+
+export type UserDocument = HydratedDocument<User>
 
 @Schema({ versionKey: false })
 export class User {

@@ -4,19 +4,13 @@ import { IsIn, IsMongoId, IsNotEmpty, IsOptional } from 'class-validator'
 
 import { categoryEnum } from 'schemas'
 
-export class CheckUserIdDto {
-  @ApiProperty({ example: '65e492cfb5052a006e97a580' })
-  @IsMongoId()
-  userId: string
-}
-
-export class FavoriteDrinkDto extends CheckUserIdDto {
+export class FavoriteDrinkDto {
   @ApiProperty({ example: '639b6de9ff77d221f190c50f' })
   @IsMongoId()
   favoriteDrinkId: string
 }
 
-export class OwnDrinkDto extends CheckUserIdDto {
+export class OwnDrinkDto {
   @ApiProperty({ example: '639b6de9ff77d221f190c50f' })
   @IsMongoId()
   ownDrinkId: string

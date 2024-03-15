@@ -11,12 +11,7 @@ import { UserService } from 'user/user.service'
 
 import { Drink, FavoriteDrink, OwnDrink } from 'schemas'
 
-import {
-  CheckUserIdDto,
-  FavoriteDrinkDto,
-  OwnDrinkDto,
-  SearchDrinksDto
-} from './dto/drink.dto'
+import { FavoriteDrinkDto, OwnDrinkDto, SearchDrinksDto } from './dto/drink.dto'
 import { CreateOwnDrinkDto } from './dto/own-drink.dto'
 
 @Injectable()
@@ -32,7 +27,7 @@ export class DrinksService {
 
   async getAllDrinks(
     { drinkName, category, ingredient, page = 1, limit = 9 }: SearchDrinksDto,
-    { userId }: CheckUserIdDto
+    userId: string
   ) {
     const isUser18YearsOld = await this.userService.isUser18YearsOld(userId)
 
@@ -57,7 +52,7 @@ export class DrinksService {
     return favoriteDrinks
   }
 
-  async getAllOwnDrinks({ userId }: CheckUserIdDto) {
+  async getAllOwnDrinks(userId: string) {
     const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
@@ -67,8 +62,8 @@ export class DrinksService {
     return ownDrinks
   }
 
-  async addOwnDrink(dto: CreateOwnDrinkDto) {
-    const isUser18YearsOld = await this.userService.isUser18YearsOld(dto.userId)
+  async addOwnDrink(dto: CreateOwnDrinkDto, userId: string) {
+    const isUser18YearsOld = await this.userService.isUser18YearsOld(userId)
 
     if (!isUser18YearsOld) {
       throw new BadRequestException(
@@ -76,19 +71,19 @@ export class DrinksService {
       )
     }
 
-    const user = await this.userService.findById(dto.userId)
+    const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
 
     const createdOwnDrink = await this.ownDrinkModel.create({
       ...dto,
-      owner: dto.userId
+      owner: userId
     })
 
     return createdOwnDrink
   }
 
-  async removeOwnDrink({ userId, ownDrinkId }: OwnDrinkDto) {
+  async removeOwnDrink({ ownDrinkId }: OwnDrinkDto, userId: string) {
     const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
@@ -102,7 +97,7 @@ export class DrinksService {
     return true
   }
 
-  async getAllFavoriteDrinks({ userId }: CheckUserIdDto) {
+  async getAllFavoriteDrinks(userId: string) {
     const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
@@ -115,7 +110,10 @@ export class DrinksService {
     return favoriteDrinks.map(favoriteDrink => favoriteDrink.drink)
   }
 
-  async addDrinkToFavorite({ userId, favoriteDrinkId }: FavoriteDrinkDto) {
+  async addDrinkToFavorite(
+    { favoriteDrinkId }: FavoriteDrinkDto,
+    userId: string
+  ) {
     const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
@@ -141,7 +139,10 @@ export class DrinksService {
     return drink
   }
 
-  async removeDrinkFromFavorite({ userId, favoriteDrinkId }: FavoriteDrinkDto) {
+  async removeDrinkFromFavorite(
+    { favoriteDrinkId }: FavoriteDrinkDto,
+    userId: string
+  ) {
     const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')

@@ -8,7 +8,6 @@ import { JwtService } from '@nestjs/jwt'
 
 import { verify } from 'argon2'
 import { Response } from 'express'
-import { Types } from 'mongoose'
 
 import { UserService } from 'user/user.service'
 
@@ -31,7 +30,7 @@ export class AuthService {
 
     const user = await this.userService.createNewUser(dto)
 
-    const tokens = this.issueTokens(user._id)
+    const tokens = this.issueTokens(user.id)
 
     return { user, ...tokens }
   }
@@ -39,7 +38,7 @@ export class AuthService {
   async signin(dto: SigninDto) {
     const user = await this.validateUser(dto)
 
-    const tokens = this.issueTokens(user._id)
+    const tokens = this.issueTokens(user.id)
 
     return { user, ...tokens }
   }
@@ -51,12 +50,12 @@ export class AuthService {
 
     const user = await this.userService.findById(result.id)
 
-    const tokens = this.issueTokens(user?._id as Types.ObjectId)
+    const tokens = this.issueTokens(user?.id)
 
     return { user, ...tokens }
   }
 
-  private issueTokens(userId: Types.ObjectId) {
+  private issueTokens(userId: string) {
     const data = { id: userId }
 
     const accessToken = this.jwt.sign(data, {

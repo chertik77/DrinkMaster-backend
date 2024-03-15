@@ -13,8 +13,6 @@ import {
 
 import { alcoholicEnum, categoryEnum, glassEnum } from 'schemas'
 
-import { CheckUserIdDto } from './drink.dto'
-
 class IngredientDto {
   @ApiProperty()
   @MinLength(2, { message: 'Title should be at least 2 characters' })
@@ -25,7 +23,7 @@ class IngredientDto {
   measure: string
 }
 
-export class CreateOwnDrinkDto extends CheckUserIdDto {
+export class CreateOwnDrinkDto {
   @ApiProperty({ example: 'Martini' })
   @MinLength(2, { message: 'Title should be at least 2 characters' })
   title: string
