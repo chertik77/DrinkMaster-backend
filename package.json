@@ -33,6 +33,7 @@
     "cookie-parser": "^1.4.6",
     "mongoose": "^8.2.1",
     "morgan": "^1.10.0",
+    "nestjs-object-id": "^1.2.1",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.0",

@@ -60,18 +60,6 @@ export const DrinkByIdResponseExample = {
   }
 }
 
-export const InvalidIdResponseExample = {
-  content: {
-    'application/json': {
-      example: {
-        message: 'Invalid drink id',
-        error: 'Bad Request',
-        statusCode: 400
-      }
-    }
-  }
-}
-
 export const DrinkInFavoritesBadRequestResponseExample = {
   content: {
     'application/json': {
@@ -287,6 +275,18 @@ export const SearchDrinksResponseExample = {
               'A rich and creamy cocktail with port wine, brandy, and an egg yolk.'
           }
         ]
+      }
+    }
+  }
+}
+
+export const InvalidObjectIdResponseExample = {
+  content: {
+    'application/json': {
+      example: {
+        message: 'Invalid ObjectId',
+        error: 'Bad Request',
+        statusCode: 400
       }
     }
   }

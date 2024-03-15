@@ -5,13 +5,13 @@ import {
 } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 
-import { Model, Types } from 'mongoose'
+import { Model } from 'mongoose'
 
 import { UserService } from 'user/user.service'
 
 import { Drink, FavoriteDrink, OwnDrink } from 'schemas'
 
-import { FavoriteDrinkDto, OwnDrinkDto, SearchDrinksDto } from './dto/drink.dto'
+import { SearchDrinksDto } from './dto/drink.dto'
 import { CreateOwnDrinkDto } from './dto/own-drink.dto'
 
 @Injectable()
@@ -83,7 +83,7 @@ export class DrinksService {
     return createdOwnDrink
   }
 
-  async removeOwnDrink({ ownDrinkId }: OwnDrinkDto, userId: string) {
+  async removeOwnDrink(ownDrinkId: string, userId: string) {
     const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
@@ -110,10 +110,7 @@ export class DrinksService {
     return favoriteDrinks.map(favoriteDrink => favoriteDrink.drink)
   }
 
-  async addDrinkToFavorite(
-    { favoriteDrinkId }: FavoriteDrinkDto,
-    userId: string
-  ) {
+  async addDrinkToFavorite(favoriteDrinkId: string, userId: string) {
     const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
@@ -139,10 +136,7 @@ export class DrinksService {
     return drink
   }
 
-  async removeDrinkFromFavorite(
-    { favoriteDrinkId }: FavoriteDrinkDto,
-    userId: string
-  ) {
+  async removeDrinkFromFavorite(favoriteDrinkId: string, userId: string) {
     const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
@@ -163,8 +157,6 @@ export class DrinksService {
   }
 
   async getDrinkById(id: string) {
-    if (!Types.ObjectId.isValid(id)) throw new BadRequestException('Invalid id')
-
     const drinkById = await this.drinkModel.findById(id)
 
     if (!drinkById) throw new NotFoundException('Drink not found')
