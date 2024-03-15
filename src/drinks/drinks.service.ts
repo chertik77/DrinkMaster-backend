@@ -141,12 +141,22 @@ export class DrinksService {
     return drink
   }
 
-  async removeDrinkFromFavorite(dto: FavoriteDrinkDto) {
-    const user = await this.userService.findById(dto.userId)
+  async removeDrinkFromFavorite({ userId, favoriteDrinkId }: FavoriteDrinkDto) {
+    const user = await this.userService.findById(userId)
 
     if (!user) throw new NotFoundException('User not found')
 
-    await this.favoriteDrinkModel.findByIdAndDelete(dto.favoriteDrinkId)
+    const favoriteDrink = await this.favoriteDrinkModel.findOne({
+      drink: favoriteDrinkId,
+      owner: userId
+    })
+
+    if (!favoriteDrink) throw new NotFoundException('Favorite drink not found')
+
+    await this.favoriteDrinkModel.findOneAndDelete({
+      drink: favoriteDrinkId,
+      owner: userId
+    })
 
     return true
   }
