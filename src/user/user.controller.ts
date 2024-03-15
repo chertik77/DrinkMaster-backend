@@ -3,8 +3,8 @@ import {
   Controller,
   HttpCode,
   Param,
-  Patch,
   Post,
+  Put,
   UsePipes,
   ValidationPipe
 } from '@nestjs/common'
@@ -44,7 +44,7 @@ export class UserController {
   constructor(private readonly usersService: UserService) {}
 
   @HttpCode(200)
-  @Patch(':id')
+  @Put(':id')
   @ApiOkResponse(UserResponseExample)
   @ApiOperation({ summary: 'Update user' })
   @ApiBadRequestResponse(UserBadRequestResponseExample)
