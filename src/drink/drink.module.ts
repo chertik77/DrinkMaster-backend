@@ -5,15 +5,15 @@ import { UserModule } from 'user/user.module'
 
 import { Drink, DrinkSchema } from 'schemas'
 
-import { DrinksController } from './drinks.controller'
-import { DrinksService } from './drinks.service'
+import { DrinkController } from './drink.controller'
+import { DrinkService } from './drink.service'
 
 @Module({
   imports: [
     UserModule,
     MongooseModule.forFeature([{ name: Drink.name, schema: DrinkSchema }])
   ],
-  controllers: [DrinksController],
-  providers: [DrinksService]
+  controllers: [DrinkController],
+  providers: [DrinkService]
 })
-export class DrinksModule {}
+export class DrinkModule {}

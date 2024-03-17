@@ -16,34 +16,34 @@ import {
 
 import { Auth } from 'guards/auth.guard'
 
-import { FiltersService } from './filters.service'
+import { FilterService } from './filters.service'
 
 @Controller('filters')
 @Auth()
 @ApiTags('Filters')
 @ApiBearerAuth()
 @ApiUnauthorizedResponse(UnauthorizedResponseExample)
-export class FiltersController {
-  constructor(private readonly filtersService: FiltersService) {}
+export class FilterController {
+  constructor(private readonly filterService: FilterService) {}
 
   @Get('/glasses')
   @ApiOkResponse(GlassResponseExample)
   @ApiOperation({ summary: 'Get all glasses' })
   getAllGlasses() {
-    return this.filtersService.getAllGlasses()
+    return this.filterService.getAllGlasses()
   }
 
   @Get('/ingredients')
   @ApiOkResponse(IngredientResponseExample)
   @ApiOperation({ summary: 'Get all ingredients' })
   getAllIngredients() {
-    return this.filtersService.getAllIngredients()
+    return this.filterService.getAllIngredients()
   }
 
   @Get('/categories')
   @ApiOkResponse(CategoryResponseExample)
   @ApiOperation({ summary: 'Get all categories' })
   getAllCategories() {
-    return this.filtersService.getAllCategories()
+    return this.filterService.getAllCategories()
   }
 }

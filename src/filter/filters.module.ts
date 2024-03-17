@@ -10,8 +10,8 @@ import {
   IngredientSchema
 } from 'schemas'
 
-import { FiltersController } from './filters.controller'
-import { FiltersService } from './filters.service'
+import { FilterController } from './filter.controller'
+import { FilterService } from './filters.service'
 
 @Module({
   imports: [
@@ -23,7 +23,7 @@ import { FiltersService } from './filters.service'
       { name: Ingredient.name, schema: IngredientSchema }
     ])
   ],
-  controllers: [FiltersController],
-  providers: [FiltersService]
+  controllers: [FilterController],
+  providers: [FilterService]
 })
-export class FiltersModule {}
+export class FilterModule {}

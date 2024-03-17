@@ -10,7 +10,7 @@ import { Drink } from 'schemas'
 import { SearchDrinksDto } from './drink.dto'
 
 @Injectable()
-export class DrinksService {
+export class DrinkService {
   constructor(
     @InjectModel(Drink.name) private readonly drinkModel: Model<Drink>,
     private readonly userService: UserService

@@ -6,7 +6,7 @@ import { Model } from 'mongoose'
 import { Category, Glass, Ingredient } from 'schemas'
 
 @Injectable()
-export class FiltersService {
+export class FilterService {
   constructor(
     @InjectModel(Glass.name) private drinkModel: Model<Glass>,
     @InjectModel(Ingredient.name) private ingredientModel: Model<Ingredient>,

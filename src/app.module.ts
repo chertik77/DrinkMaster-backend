@@ -3,12 +3,12 @@ import { ConfigModule } from '@nestjs/config'
 import { RouterModule } from '@nestjs/core'
 import { MongooseModule } from '@nestjs/mongoose'
 
-import { FavoriteDrinkModule } from 'drinks/favorite-drink/favorite-drink.module'
-import { OwnDrinkModule } from 'drinks/own-drink/own-drink.module'
+import { FavoriteDrinkModule } from 'drink/favorite-drink/favorite-drink.module'
+import { OwnDrinkModule } from 'drink/own-drink/own-drink.module'
 
 import { AuthModule } from './auth/auth.module'
-import { DrinksModule } from './drinks/drinks.module'
-import { FiltersModule } from './filters/filters.module'
+import { DrinkModule } from './drink/drink.module'
+import { FilterModule } from './filter/filters.module'
 import { UserModule } from './user/user.module'
 
 @Module({
@@ -17,14 +17,14 @@ import { UserModule } from './user/user.module'
     MongooseModule.forRoot(process.env.DB_HOST!),
     AuthModule,
     UserModule,
-    FiltersModule,
+    FilterModule,
     OwnDrinkModule,
     FavoriteDrinkModule,
-    DrinksModule,
+    DrinkModule,
     RouterModule.register([
       {
         path: 'drinks',
-        module: DrinksModule,
+        module: DrinkModule,
         children: [
           { path: 'own', module: OwnDrinkModule },
           { path: 'favorite', module: FavoriteDrinkModule }
