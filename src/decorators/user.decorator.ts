@@ -1,13 +1,14 @@
-import { createParamDecorator, ExecutionContext } from '@nestjs/common'
+import type { ExecutionContext } from '@nestjs/common'
+import type { UserDocument } from 'schemas'
 
-import { UserDocument } from 'schemas'
+import { createParamDecorator } from '@nestjs/common'
 
 export const CurrentUser = createParamDecorator(
-  (data: keyof Pick<UserDocument, 'id'>, ctx: ExecutionContext) => {
+  (id: keyof Pick<UserDocument, 'id'>, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest()
 
     const user = request.user
 
-    return data ? user[data] : user
+    return id ? user.id : user
   }
 )

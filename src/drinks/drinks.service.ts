@@ -1,27 +1,18 @@
-import {
-  BadRequestException,
-  Injectable,
-  NotFoundException
-} from '@nestjs/common'
-import { InjectModel } from '@nestjs/mongoose'
+import type { Model } from 'mongoose'
 
-import { Model } from 'mongoose'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
 
 import { UserService } from 'user/user.service'
 
-import { Drink, FavoriteDrink, OwnDrink } from 'schemas'
+import { Drink } from 'schemas'
 
-import { SearchDrinksDto } from './dto/drink.dto'
-import { CreateOwnDrinkDto } from './dto/own-drink.dto'
+import { SearchDrinksDto } from './drink.dto'
 
 @Injectable()
 export class DrinksService {
   constructor(
     @InjectModel(Drink.name) private readonly drinkModel: Model<Drink>,
-    @InjectModel(FavoriteDrink.name)
-    private readonly favoriteDrinkModel: Model<FavoriteDrink>,
-    @InjectModel(OwnDrink.name)
-    private readonly ownDrinkModel: Model<OwnDrink>,
     private readonly userService: UserService
   ) {}
 
@@ -47,113 +38,9 @@ export class DrinksService {
   }
 
   async getMostFrequentFavoriteDrinks() {
-    const favoriteDrinks = await this.favoriteDrinkModel.find().limit(4).exec()
+    const favoriteDrinks = await this.drinkModel.find().limit(4).exec()
 
     return favoriteDrinks
-  }
-
-  async getAllOwnDrinks(userId: string) {
-    const user = await this.userService.findById(userId)
-
-    if (!user) throw new NotFoundException('User not found')
-
-    const ownDrinks = await this.ownDrinkModel.find({ owner: userId }).exec()
-
-    return ownDrinks
-  }
-
-  async addOwnDrink(dto: CreateOwnDrinkDto, userId: string) {
-    const isUser18YearsOld = await this.userService.isUser18YearsOld(userId)
-
-    if (!isUser18YearsOld) {
-      throw new BadRequestException(
-        'User is not 18 years old to add alcoholic drink'
-      )
-    }
-
-    const user = await this.userService.findById(userId)
-
-    if (!user) throw new NotFoundException('User not found')
-
-    const createdOwnDrink = await this.ownDrinkModel.create({
-      ...dto,
-      owner: userId
-    })
-
-    return createdOwnDrink
-  }
-
-  async removeOwnDrink(ownDrinkId: string, userId: string) {
-    const user = await this.userService.findById(userId)
-
-    if (!user) throw new NotFoundException('User not found')
-
-    const ownDrink = await this.ownDrinkModel.findById(ownDrinkId)
-
-    if (!ownDrink) throw new NotFoundException('Own drink not found')
-
-    await this.ownDrinkModel.findByIdAndDelete(ownDrinkId)
-
-    return true
-  }
-
-  async getAllFavoriteDrinks(userId: string) {
-    const user = await this.userService.findById(userId)
-
-    if (!user) throw new NotFoundException('User not found')
-
-    const favoriteDrinks = await this.favoriteDrinkModel
-      .find({ owner: userId })
-      .populate('drink')
-      .exec()
-
-    return favoriteDrinks.map(favoriteDrink => favoriteDrink.drink)
-  }
-
-  async addDrinkToFavorite(favoriteDrinkId: string, userId: string) {
-    const user = await this.userService.findById(userId)
-
-    if (!user) throw new NotFoundException('User not found')
-
-    const drink = await this.drinkModel.findById(favoriteDrinkId)
-
-    if (!drink) throw new NotFoundException('Drink not found')
-
-    const isDrinkExistsInFavorites = await this.favoriteDrinkModel.findOne({
-      drink: favoriteDrinkId,
-      owner: userId
-    })
-
-    if (isDrinkExistsInFavorites) {
-      throw new BadRequestException('Drink already in favorites')
-    }
-
-    await this.favoriteDrinkModel.create({
-      drink: favoriteDrinkId,
-      owner: userId
-    })
-
-    return drink
-  }
-
-  async removeDrinkFromFavorite(favoriteDrinkId: string, userId: string) {
-    const user = await this.userService.findById(userId)
-
-    if (!user) throw new NotFoundException('User not found')
-
-    const favoriteDrink = await this.favoriteDrinkModel.findOne({
-      drink: favoriteDrinkId,
-      owner: userId
-    })
-
-    if (!favoriteDrink) throw new NotFoundException('Favorite drink not found')
-
-    await this.favoriteDrinkModel.findOneAndDelete({
-      drink: favoriteDrinkId,
-      owner: userId
-    })
-
-    return true
   }
 
   async getDrinkById(id: string) {
