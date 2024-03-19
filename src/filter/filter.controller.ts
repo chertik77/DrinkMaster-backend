@@ -26,21 +26,21 @@ import { FilterService } from './filters.service'
 export class FilterController {
   constructor(private readonly filterService: FilterService) {}
 
-  @Get('/glasses')
+  @Get('glasses')
   @ApiOkResponse(GlassResponseExample)
   @ApiOperation({ summary: 'Get all glasses' })
   getAllGlasses() {
     return this.filterService.getAllGlasses()
   }
 
-  @Get('/ingredients')
+  @Get('ingredients')
   @ApiOkResponse(IngredientResponseExample)
   @ApiOperation({ summary: 'Get all ingredients' })
   getAllIngredients() {
     return this.filterService.getAllIngredients()
   }
 
-  @Get('/categories')
+  @Get('categories')
   @ApiOkResponse(CategoryResponseExample)
   @ApiOperation({ summary: 'Get all categories' })
   getAllCategories() {
