@@ -6,13 +6,7 @@ import isEmail from 'validator/lib/isEmail'
 
 export type UserDocument = HydratedDocument<User>
 
-@Schema({
-  toJSON: {
-    transform: function (_, ret) {
-      delete ret.password
-    }
-  }
-})
+@Schema()
 export class User {
   @Prop({ required: true, minlength: 2 })
   name: string

@@ -54,6 +54,8 @@ mongoose.set('toJSON', {
   versionKey: false,
   virtuals: true,
   transform(_, ret) {
+    if (ret.password) delete ret.password
+
     delete ret._id
   }
 })
