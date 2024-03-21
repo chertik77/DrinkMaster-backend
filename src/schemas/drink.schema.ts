@@ -10,7 +10,6 @@ import { glassEnum } from './glass.schema'
   toJSON: {
     virtuals: true,
     transform(_, ret) {
-      ret.id = ret._id
       delete ret._id
     }
   }

@@ -5,7 +5,6 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
   toJSON: {
     virtuals: true,
     transform(_, ret) {
-      ret.id = ret._id
       delete ret._id
     }
   }

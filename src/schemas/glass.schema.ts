@@ -40,7 +40,6 @@ export const glassEnum = [
   toJSON: {
     virtuals: true,
     transform(_, ret) {
-      ret.id = ret._id
       delete ret._id
     }
   }

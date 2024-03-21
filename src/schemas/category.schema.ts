@@ -19,7 +19,6 @@ export const categoryEnum = [
   toJSON: {
     virtuals: true,
     transform(_, ret) {
-      ret.id = ret._id
       delete ret._id
     }
   }

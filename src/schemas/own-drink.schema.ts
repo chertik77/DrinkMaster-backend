@@ -13,7 +13,6 @@ export const alcoholicEnum = ['Alcoholic', 'Non alcoholic']
   toJSON: {
     virtuals: true,
     transform(_, ret) {
-      ret.id = ret._id
       delete ret._id
     }
   }
