@@ -1,73 +1,111 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Drink Master Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A brief description of what this project does and who it's for
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Lessons Learned
 
-## Description
+What did you learn while building this project? What challenges did you face and how did you overcome them?
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Features
 
-## Installation
+- User Authentication and Authorization
+- Email Notifications
+- Security and Validation
+- Documentation and Testing
+- Drink Management
+
+## Documentation
+
+[Link to the API Documentation](https://linktodocumentation)
+
+## Tech Stack
+
+**Main Technologies:**
+
+Node.js, Nest.js, Typescript, MongoDB, Mongoose
+
+**Additional Technologies:**
+
+_Nest.js Modules:_
+
+- Nest.js Mailer: Nest.js module to handle email sending functionality.
+
+- Nest.js Config: Nest.js module for configuration management.
+
+- Nest.js Jwt: Nest.js module for JSON Web Token (JWT) implementation.
+
+- Nest.js Passport: Nest.js module for authentication with Passport.
+
+- Nest.js Swagger: Nest.js module for Swagger/OpenAPI integration.
+
+- Nest.js Object Id: Nest.js module for ObjectId validation.
+
+_Another Modules:_
+
+- Argon2: A password hashing library.
+
+- Сlass Validator & Class Transformer: Libraries for performing transforming and validating objects.
+
+- Cookie Parser: Middleware for parsing cookies.
+
+- Passport: Authentication middleware for Node.js.
+
+- Passport Jwt: Passport strategy for authenticating with a JSON Web Token.
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`DB_HOST`
+
+`JWT_SECRET`
+
+`ALLOWED_ORIGINS`
+
+`PORT`
+
+`MAILER_USER`
+
+`MAILER_PASS`
+
+`MAILER_PORT`
+
+`MAILER_HOST`
+
+## Run Locally
+
+Clone the project
 
 ```bash
-$ npm install
+  git clone https://github.com/chertik77/DrinkMaster-backend
 ```
 
-## Running the app
+Go to the project directory
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  cd DrinkMaster-backend
 ```
 
-## Test
+Install dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  npm install
 ```
 
-## Support
+Start the server
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+  npm run start
+```
 
-## Stay in touch
+## Running Tests
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+To run tests, run the following command
 
-## License
+```bash
+  npm run test
+```
 
-Nest is [MIT licensed](LICENSE).
+## Screenshots
+
+![App Screenshot]('./src/examples/readme.png')
