@@ -16,7 +16,7 @@ What did you learn while building this project? What challenges did you face and
 
 ## Documentation
 
-[Link to the API Documentation](https://linktodocumentation)
+[Link to the API Documentation](https://drinkmaster-backend-7kxc.onrender.com/api)
 
 ## Tech Stack
 
