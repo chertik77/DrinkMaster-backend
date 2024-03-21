@@ -1,6 +1,6 @@
 # Drink Master Backend
 
-A brief description of what this project does and who it's for
+The Drink Master backend serves as the backbone of the Drink Master application, facilitating seamless interactions between users and the extensive database of drink recipes. Designed to provide a robust and secure environment, the backend enables users to explore, contribute, and personalize their drink collections.
 
 ## Lessons Learned
 
