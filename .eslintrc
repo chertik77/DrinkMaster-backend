@@ -8,8 +8,14 @@
   "plugins": ["@typescript-eslint/eslint-plugin", "@darraghor/nestjs-typed"],
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "plugin:@darraghor/nestjs-typed/recommended"
+    "plugin:@darraghor/nestjs-typed/recommended",
+    "plugin:jest-formatting/strict",
+    "plugin:jest/all"
   ],
+  "rules": {
+    "jest/no-hooks": "off",
+    "jest/prefer-expect-assertions": "off"
+  },
   "root": true,
   "env": { "node": true }
 }

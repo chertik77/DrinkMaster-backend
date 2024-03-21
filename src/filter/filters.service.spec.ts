@@ -9,7 +9,7 @@ import { Ingredient } from 'schemas/ingredient.schema'
 
 import { FilterService } from './filters.service'
 
-describe('FilterService', () => {
+describe('filterService', () => {
   let service: FilterService
   let categoryModel: Model<Category>
   let glassModel: Model<Glass>
@@ -66,9 +66,9 @@ describe('FilterService', () => {
 
       expect(findSpy).toHaveBeenCalledTimes(1)
 
-      expect(categories).toEqual(result)
+      expect(categories).toStrictEqual(result)
 
-      expect(categories.length).toBe(result.length)
+      expect(categories).toHaveLength(result.length)
 
       categories.forEach(category => {
         expect(category).toHaveProperty('id')
@@ -87,9 +87,9 @@ describe('FilterService', () => {
 
       expect(findSpy).toHaveBeenCalledTimes(1)
 
-      expect(glasses).toEqual(result)
+      expect(glasses).toStrictEqual(result)
 
-      expect(glasses.length).toBe(result.length)
+      expect(glasses).toHaveLength(result.length)
 
       glasses.forEach(glass => {
         expect(glass).toHaveProperty('id')
@@ -128,19 +128,12 @@ describe('FilterService', () => {
 
       expect(findSpy).toHaveBeenCalledTimes(1)
 
-      expect(ingredients).toEqual(result)
+      expect(ingredients).toStrictEqual(result)
 
-      expect(ingredients.length).toBe(result.length)
+      expect(ingredients).toHaveLength(result.length)
 
       ingredients.forEach(ingredient => {
-        expect(ingredient).toHaveProperty('id')
-        expect(ingredient).toHaveProperty('ingredientThumb')
-        expect(ingredient).toHaveProperty('abv')
-        expect(ingredient).toHaveProperty('alcohol')
-        expect(ingredient).toHaveProperty('description')
-        expect(ingredient).toHaveProperty('type')
-        expect(ingredient).toHaveProperty('flavour')
-        expect(ingredient).toHaveProperty('country')
+        expect(ingredient).toMatchObject(result[0])
       })
     })
   })
