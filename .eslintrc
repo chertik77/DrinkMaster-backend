@@ -9,13 +9,19 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:@darraghor/nestjs-typed/recommended",
-    "plugin:jest-formatting/strict",
-    "plugin:jest/all"
+    "plugin:jest-formatting/strict"
   ],
-  "rules": {
-    "jest/no-hooks": "off",
-    "jest/prefer-expect-assertions": "off"
-  },
+  "overrides": [
+    {
+      "files": ["./src/**/*.spec.ts"],
+      "plugins": ["jest"],
+      "extends": ["plugin:jest/all"],
+      "rules": {
+        "jest/no-hooks": "off",
+        "jest/prefer-expect-assertions": "off"
+      }
+    }
+  ],
   "root": true,
   "env": { "node": true }
 }

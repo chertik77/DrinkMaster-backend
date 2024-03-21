@@ -12,7 +12,6 @@ import { UserService } from './user.service'
 describe('userService', () => {
   let service: UserService
   let model: Model<User>
-  let mailerService: MailerService
 
   const mockAuthService = {
     create: jest.fn(),
@@ -34,7 +33,6 @@ describe('userService', () => {
 
     service = module.get<UserService>(UserService)
     model = module.get<Model<User>>(getModelToken(User.name))
-    mailerService = module.get<MailerService>(MailerService)
   })
 
   it('should be defined', () => {
