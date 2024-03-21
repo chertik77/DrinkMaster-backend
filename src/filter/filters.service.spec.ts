@@ -7,10 +7,10 @@ import { Category } from 'schemas/category.schema'
 import { Glass } from 'schemas/glass.schema'
 import { Ingredient } from 'schemas/ingredient.schema'
 
-import { FiltersService } from './filters.service'
+import { FilterService } from './filters.service'
 
-describe('FiltersService', () => {
-  let service: FiltersService
+describe('FilterService', () => {
+  let service: FilterService
   let categoryModel: Model<Category>
 
   const mockCategoryService = {
@@ -22,7 +22,7 @@ describe('FiltersService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        FiltersService,
+        FilterService,
         { provide: getModelToken(Glass.name), useValue: {} },
         { provide: getModelToken(Category.name), useValue: {} },
         {
@@ -32,7 +32,7 @@ describe('FiltersService', () => {
       ]
     }).compile()
 
-    service = module.get<FiltersService>(FiltersService)
+    service = module.get<FilterService>(FilterService)
     categoryModel = module.get<Model<Category>>(getModelToken(Category.name))
   })
 
