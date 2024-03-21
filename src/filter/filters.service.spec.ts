@@ -3,8 +3,8 @@ import { Test, TestingModule } from '@nestjs/testing'
 
 import { Model } from 'mongoose'
 
+import { Glass } from 'schemas'
 import { Category } from 'schemas/category.schema'
-import { Glass } from 'schemas/glass.schema'
 import { Ingredient } from 'schemas/ingredient.schema'
 
 import { FilterService } from './filters.service'
@@ -12,21 +12,35 @@ import { FilterService } from './filters.service'
 describe('FilterService', () => {
   let service: FilterService
   let categoryModel: Model<Category>
+  let glassModel: Model<Glass>
+  let ingredientModel: Model<Ingredient>
 
   const mockCategoryService = {
-    find() {
-      return {}
-    }
+    find: jest.fn()
+  }
+
+  const mockGlassService = {
+    find: jest.fn()
+  }
+
+  const mockIngredientService = {
+    find: jest.fn()
   }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         FilterService,
-        { provide: getModelToken(Glass.name), useValue: {} },
-        { provide: getModelToken(Category.name), useValue: {} },
         {
           provide: getModelToken(Ingredient.name),
+          useValue: mockIngredientService
+        },
+        {
+          provide: getModelToken(Glass.name),
+          useValue: mockGlassService
+        },
+        {
+          provide: getModelToken(Category.name),
           useValue: mockCategoryService
         }
       ]
@@ -34,12 +48,100 @@ describe('FilterService', () => {
 
     service = module.get<FilterService>(FilterService)
     categoryModel = module.get<Model<Category>>(getModelToken(Category.name))
+    glassModel = module.get<Model<Glass>>(getModelToken(Glass.name))
+    ingredientModel = module.get<Model<Ingredient>>(
+      getModelToken(Ingredient.name)
+    )
   })
 
-  it('should return all categories', async () => {
-    const result = [{ _id: '65e239dc2410175666785c6d', name: 'Cocoa' }]
-    jest.spyOn(categoryModel, 'find').mockResolvedValue(result)
+  describe('findAll - categories', () => {
+    it('should return an array of categories', async () => {
+      const result = [{ id: '65e239dc2410175666785c6d', name: 'Cocoa' }]
 
-    expect(await service.getAllCategories()).toBe(result)
+      const findSpy = jest
+        .spyOn(categoryModel, 'find')
+        .mockResolvedValue(result)
+
+      const categories = await service.getAllCategories()
+
+      expect(findSpy).toHaveBeenCalledTimes(1)
+
+      expect(categories).toEqual(result)
+
+      expect(categories.length).toBe(result.length)
+
+      categories.forEach(category => {
+        expect(category).toHaveProperty('id')
+        expect(category).toHaveProperty('name')
+      })
+    })
+  })
+
+  describe('findAll - glasses', () => {
+    it('should return an array of glasses', async () => {
+      const result = [{ id: '65e239dc2410175666785c6d', name: 'Jar' }]
+
+      const findSpy = jest.spyOn(glassModel, 'find').mockResolvedValue(result)
+
+      const glasses = await service.getAllGlasses()
+
+      expect(findSpy).toHaveBeenCalledTimes(1)
+
+      expect(glasses).toEqual(result)
+
+      expect(glasses.length).toBe(result.length)
+
+      glasses.forEach(glass => {
+        expect(glass).toHaveProperty('id')
+        expect(glass).toHaveProperty('name')
+      })
+    })
+  })
+
+  describe('findAll - ingredients', () => {
+    it('should return an array of ingredients', async () => {
+      const result = [
+        {
+          title: 'Tea',
+          ingredientThumb:
+            'https://ftp.goit.study/img/drinkify/ingredients/Tea.png',
+          'thumb-medium':
+            'https://ftp.goit.study/img/drinkify/ingredients/Tea-Medium.png',
+          'thumb-small':
+            'https://ftp.goit.study/img/drinkify/ingredients/Tea-Small.png',
+          abv: '0',
+          alcohol: 'No',
+          description:
+            "Tea is a popular aromatic beverage made by steeping the dried leaves of the Camellia sinensis plant in hot water. It's one of the most widely consumed beverages in the world, known for its diverse flavours and potential health benefits.",
+          type: 'Tea',
+          flavour: 'tea',
+          country: 'United States',
+          id: '64aebb7f82d96cc69e0eb4b4'
+        }
+      ]
+
+      const findSpy = jest
+        .spyOn(ingredientModel, 'find')
+        .mockResolvedValue(result)
+
+      const ingredients = await service.getAllIngredients()
+
+      expect(findSpy).toHaveBeenCalledTimes(1)
+
+      expect(ingredients).toEqual(result)
+
+      expect(ingredients.length).toBe(result.length)
+
+      ingredients.forEach(ingredient => {
+        expect(ingredient).toHaveProperty('id')
+        expect(ingredient).toHaveProperty('ingredientThumb')
+        expect(ingredient).toHaveProperty('abv')
+        expect(ingredient).toHaveProperty('alcohol')
+        expect(ingredient).toHaveProperty('description')
+        expect(ingredient).toHaveProperty('type')
+        expect(ingredient).toHaveProperty('flavour')
+        expect(ingredient).toHaveProperty('country')
+      })
+    })
   })
 })

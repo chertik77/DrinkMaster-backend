@@ -14,14 +14,14 @@ export class FilterService {
   ) {}
 
   getAllGlasses() {
-    return this.drinkModel.find().exec()
+    return this.drinkModel.find({})
   }
 
   getAllIngredients() {
-    return this.ingredientModel.find().exec()
+    return this.ingredientModel.find({})
   }
 
   getAllCategories() {
-    return this.categoryModel.find().exec()
+    return this.categoryModel.find({})
   }
 }
