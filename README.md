@@ -108,4 +108,4 @@ To run tests, run the following command
 
 ## Screenshots
 
-![App Screenshot]('./src/examples/readme.png')
+![App Screenshot](./src/examples/readme.png)
