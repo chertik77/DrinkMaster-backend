@@ -4,7 +4,11 @@ The Drink Master backend serves as the backbone of the Drink Master application,
 
 ## Lessons Learned
 
-What did you learn while building this project? What challenges did you face and how did you overcome them?
+- Authentication Complexity: Implementing authentication with two tokens posed a challenge initially due to its complexity. However, by breaking down the process into smaller steps and referring to documentation and tutorials, I was able to grasp the concept and implement it successfully.
+
+- Router Module Structure: Structuring router modules with children routes required careful planning to ensure a logical organization of endpoints. I overcame this challenge by sketching out the module structure beforehand and seeking advice from experienced developers.
+
+- NestJS Learning Curve: Learning NestJS and its conventions took some time, especially for someone with limited prior experience. To overcome this, I dedicated time to studying the framework's documentation, following tutorials, and experimenting with sample projects until I felt comfortable with its concepts.
 
 ## Features
 
