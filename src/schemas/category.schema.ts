@@ -14,15 +14,7 @@ export const categoryEnum = [
   'Soft Drink'
 ]
 
-@Schema({
-  versionKey: false,
-  toJSON: {
-    virtuals: true,
-    transform(_, ret) {
-      delete ret._id
-    }
-  }
-})
+@Schema()
 export class Category {
   @Prop({ enum: categoryEnum })
   name: string

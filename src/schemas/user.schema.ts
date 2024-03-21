@@ -7,11 +7,8 @@ import isEmail from 'validator/lib/isEmail'
 export type UserDocument = HydratedDocument<User>
 
 @Schema({
-  versionKey: false,
   toJSON: {
-    virtuals: true,
-    transform(_, ret) {
-      delete ret._id
+    transform: function (_, ret) {
       delete ret.password
     }
   }

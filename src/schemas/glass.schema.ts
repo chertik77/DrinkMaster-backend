@@ -35,15 +35,7 @@ export const glassEnum = [
   'Coupe Glass'
 ]
 
-@Schema({
-  versionKey: false,
-  toJSON: {
-    virtuals: true,
-    transform(_, ret) {
-      delete ret._id
-    }
-  }
-})
+@Schema()
 export class Glass {
   @Prop()
   name: string

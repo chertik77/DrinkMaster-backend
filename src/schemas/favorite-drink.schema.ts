@@ -5,15 +5,7 @@ import { Types } from 'mongoose'
 import { Drink } from './drink.schema'
 import { User } from './user.schema'
 
-@Schema({
-  versionKey: false,
-  toJSON: {
-    virtuals: true,
-    transform(_, ret) {
-      delete ret._id
-    }
-  }
-})
+@Schema()
 export class FavoriteDrink {
   @Prop({ type: Types.ObjectId, ref: 'User' })
   owner: User

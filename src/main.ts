@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 import * as cookieParser from 'cookie-parser'
+import * as mongoose from 'mongoose'
 import * as morgan from 'morgan'
 
 import { AppModule } from './app.module'
@@ -48,3 +49,11 @@ async function bootstrap() {
 }
 
 bootstrap()
+
+mongoose.set('toJSON', {
+  versionKey: false,
+  virtuals: true,
+  transform(_, ret) {
+    delete ret._id
+  }
+})
