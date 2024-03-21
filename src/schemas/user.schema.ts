@@ -1,11 +1,22 @@
+import type { HydratedDocument } from 'mongoose'
+
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 
-import { HydratedDocument } from 'mongoose'
 import isEmail from 'validator/lib/isEmail'
 
 export type UserDocument = HydratedDocument<User>
 
-@Schema({ versionKey: false })
+@Schema({
+  versionKey: false,
+  toJSON: {
+    virtuals: true,
+    transform(_, ret) {
+      ret.id = ret._id
+      delete ret._id
+      delete ret.password
+    }
+  }
+})
 export class User {
   @Prop({ required: true, minlength: 2 })
   name: string
@@ -30,11 +41,3 @@ export class User {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
-
-UserSchema.methods.toJSON = function () {
-  const user = this.toObject()
-
-  delete user.password
-
-  return user
-}

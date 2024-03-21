@@ -1,6 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 
-@Schema({ versionKey: false })
+@Schema({
+  versionKey: false,
+  toJSON: {
+    virtuals: true,
+    transform(_, ret) {
+      ret.id = ret._id
+      delete ret._id
+    }
+  }
+})
 export class Ingredient {
   @Prop()
   title: string

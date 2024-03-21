@@ -8,7 +8,16 @@ import { User } from './user.schema'
 
 export const alcoholicEnum = ['Alcoholic', 'Non alcoholic']
 
-@Schema({ versionKey: false })
+@Schema({
+  versionKey: false,
+  toJSON: {
+    virtuals: true,
+    transform(_, ret) {
+      ret.id = ret._id
+      delete ret._id
+    }
+  }
+})
 export class OwnDrink {
   @Prop({ required: true, minlength: 2 })
   title: string
@@ -19,7 +28,7 @@ export class OwnDrink {
   @Prop()
   drinkThumb: string
 
-  @Prop({ enum: categoryEnum, required: true })
+  @Prop({ required: true, enum: categoryEnum })
   category: string
 
   @Prop({ enum: glassEnum, required: true })
