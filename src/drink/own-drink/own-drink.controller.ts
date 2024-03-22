@@ -7,7 +7,7 @@ import { IsObjectIdPipe } from 'nestjs-object-id'
 
 import { Auth } from 'guards/auth.guard'
 
-import { CreateOwnDrinkDto } from './own-drink.dto'
+import { CreateOwnDrinkDto, EditOwnDrinkDto } from './own-drink.dto'
 import { OwnDrinkService } from './own-drink.service'
 
 @NestjsCommon.Controller()
@@ -39,6 +39,20 @@ export class OwnDrinkController {
     @CurrentUser('id') userId: string
   ) {
     return this.ownDrinkService.addOwnDrink(dto, userId)
+  }
+
+  @NestjsCommon.UsePipes(new NestjsCommon.ValidationPipe())
+  @NestjsCommon.Put('update/:id')
+  @NestjsSwagger.ApiOperation({ summary: 'Update own drink' })
+  @NestjsSwagger.ApiBody({ schema: { example: { title: 'Red Joi' } } })
+  @NestjsSwagger.ApiOkResponse(Examples.OwnDrinkEditedResponseExample)
+  @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
+  updateOwnDrink(
+    @NestjsCommon.Param('id', IsObjectIdPipe) id: string,
+    @NestjsCommon.Body() dto: EditOwnDrinkDto,
+    @CurrentUser('id') userId: string
+  ) {
+    return this.ownDrinkService.updateOwnDrink(id, dto, userId)
   }
 
   @NestjsCommon.Delete('remove/:id')

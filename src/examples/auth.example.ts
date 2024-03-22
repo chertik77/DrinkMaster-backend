@@ -10,7 +10,8 @@ export const AuthResponseExample = {
           email: 'test@gmail.com',
           password: 'qwerty',
           dateOfBirth: '2001-01-01',
-          userTheme: 'light'
+          userTheme: 'light',
+          id: '65fc5e68ce24eefbd11a5113'
         },
         accessToken:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZTc5OTFlOWNiMDQ4MWM0NmUzNjE0NiIsImlhdCI6MTcwOTY3NjgzMCwiZXhwIjoxNzA5NjgwNDMwfQ.jCQulMoUbRdq1DLJz4wRSAh1kGGRiJ1ARHs2cnHzfxk'

@@ -11,7 +11,7 @@ import { UserService } from 'user/user.service'
 
 import { OwnDrink } from 'schemas'
 
-import { CreateOwnDrinkDto } from './own-drink.dto'
+import { CreateOwnDrinkDto, EditOwnDrinkDto } from './own-drink.dto'
 
 @Injectable()
 export class OwnDrinkService {
@@ -50,6 +50,22 @@ export class OwnDrinkService {
     })
 
     return createdOwnDrink
+  }
+
+  async updateOwnDrink(id: string, dto: EditOwnDrinkDto, userId: string) {
+    const user = await this.userService.findById(userId)
+
+    if (!user) throw new NotFoundException('User not found')
+
+    const ownDrink = await this.ownDrinkModel.findOneAndUpdate(
+      { owner: userId, _id: id },
+      dto,
+      { new: true }
+    )
+
+    if (!ownDrink) throw new NotFoundException('Own drink not found')
+
+    return ownDrink
   }
 
   async removeOwnDrink(ownDrinkId: string, userId: string) {

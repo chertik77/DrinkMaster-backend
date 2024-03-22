@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger'
+import { ApiProperty, PartialType } from '@nestjs/swagger'
 
 import { Type } from 'class-transformer'
 import {
@@ -77,3 +77,5 @@ export class CreateOwnDrinkDto {
   @MinLength(5, { message: 'Title should be at least 5 characters' })
   instructions: string
 }
+
+export class EditOwnDrinkDto extends PartialType(CreateOwnDrinkDto) {}

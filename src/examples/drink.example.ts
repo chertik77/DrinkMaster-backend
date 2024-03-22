@@ -2,7 +2,6 @@ export const DrinkByIdResponseExample = {
   content: {
     'application/json': {
       example: {
-        _id: '639b6de9ff77d221f190c50f',
         drink: 'Quentin',
         drinkAlternate: 'Sorry, not specified',
         tags: 'IBA,ContemporaryClassic',
@@ -54,7 +53,8 @@ export const DrinkByIdResponseExample = {
         ],
         shortDescription:
           'A refreshing and citrusy cocktail with a hint of mint.',
-        owner: '65e7a45e583124bf6afe431c'
+        owner: '65e7a45e583124bf6afe431c',
+        id: '639b6de9ff77d221f190c50f'
       }
     }
   }
@@ -88,7 +88,6 @@ export const OwnDrinkResponseExample = {
   content: {
     'application/json': {
       example: {
-        _id: '65e7a45e583124bf6afe431c',
         title: 'Martini',
         description: 'A refreshing and citrusy cocktail with a hint of mint.',
         drinkThumb: 'https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg',
@@ -100,7 +99,30 @@ export const OwnDrinkResponseExample = {
           { title: 'Vodka', measure: '50ml' },
           { title: 'Lemon', measure: '1' }
         ],
-        owner: '65e7a45e583124bf6afe431c'
+        owner: '65e7a45e583124bf6afe431c',
+        id: '65e7a45e583124bf6afe431c'
+      }
+    }
+  }
+}
+
+export const OwnDrinkEditedResponseExample = {
+  content: {
+    'application/json': {
+      example: {
+        title: 'Red Joi',
+        description: 'A refreshing and citrusy cocktail with a hint of mint.',
+        drinkThumb: 'https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg',
+        category: 'Ordinary Drink',
+        glass: 'Cocktail glass',
+        alcoholic: 'Alcoholic',
+        portionCount: 1,
+        ingredients: [
+          { title: 'Vodka', measure: '50ml' },
+          { title: 'Lemon', measure: '1' }
+        ],
+        owner: '65e7a45e583124bf6afe431c',
+        id: '65e7a45e583124bf6afe431c'
       }
     }
   }
@@ -116,7 +138,6 @@ export const SearchDrinksResponseExample = {
         limit: 5,
         drinks: [
           {
-            _id: '639b6de9ff77d221f190c50f',
             drink: 'Quentin',
             drinkAlternate: 'Sorry, not specified',
             tags: 'IBA,ContemporaryClassic',
@@ -146,10 +167,10 @@ export const SearchDrinksResponseExample = {
             drinkThumb:
               'https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg',
             shortDescription:
-              'A refreshing and citrusy cocktail with a hint of mint.'
+              'A refreshing and citrusy cocktail with a hint of mint.',
+            id: '639b6de9ff77d221f190c50f'
           },
           {
-            _id: '639b6de9ff77d221f190c51e',
             drink: 'Affair',
             drinkAlternate: 'Sorry, not specified',
             tags: 'OrdinaryDrink,Alcoholic',
@@ -179,10 +200,10 @@ export const SearchDrinksResponseExample = {
             drinkThumb:
               'https://ftp.goit.study/img/drinkify/recipes/Affair.jpg',
             shortDescription:
-              'A seductive and sophisticated cocktail with a mix of spirits and fruit juices.'
+              'A seductive and sophisticated cocktail with a mix of spirits and fruit juices.',
+            id: '639b6de9ff77d221f190c51e'
           },
           {
-            _id: '639b6de9ff77d221f190c520',
             drink: 'Avalon',
             drinkAlternate: 'Sorry, not specified',
             tags: 'OrdinaryDrink,Alcoholic',
@@ -212,10 +233,10 @@ export const SearchDrinksResponseExample = {
             drinkThumb:
               'https://ftp.goit.study/img/drinkify/recipes/Avalon.jpg',
             shortDescription:
-              'A tropical and fruity cocktail with a blend of rum and tropical fruit juices.'
+              'A tropical and fruity cocktail with a blend of rum and tropical fruit juices.',
+            id: '639b6de9ff77d221f190c520'
           },
           {
-            _id: '639b6de9ff77d221f190c53d',
             drink: "Owen's Grandmother's Revenge",
             drinkAlternate: 'Sorry, not specified',
             tags: 'OrdinaryDrink,Alcoholic',
@@ -239,10 +260,10 @@ export const SearchDrinksResponseExample = {
             drinkThumb:
               'https://ftp.goit.study/img/drinkify/recipes/Owen_s_Grandmother_s_Revenge.jpg',
             shortDescription:
-              'A spicy and flavorful cocktail with bourbon, ginger beer, and bitters.'
+              'A spicy and flavorful cocktail with bourbon, ginger beer, and bitters.',
+            id: '639b6de9ff77d221f190c53d'
           },
           {
-            _id: '639b6de9ff77d221f190c549',
             drink: 'Porto flip',
             drinkAlternate: 'Sorry, not specified',
             tags: 'IBA,Classic',
@@ -272,7 +293,8 @@ export const SearchDrinksResponseExample = {
             drinkThumb:
               'https://ftp.goit.study/img/drinkify/recipes/Porto_flip.jpg',
             shortDescription:
-              'A rich and creamy cocktail with port wine, brandy, and an egg yolk.'
+              'A rich and creamy cocktail with port wine, brandy, and an egg yolk.',
+            id: '639b6de9ff77d221f190c549'
           }
         ]
       }
