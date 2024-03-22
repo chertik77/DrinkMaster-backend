@@ -1,9 +1,10 @@
+import type { Model } from 'mongoose'
+
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 
 import { MailerService } from '@nestjs-modules/mailer'
 import { hash } from 'argon2'
-import { Model } from 'mongoose'
 
 import { SignupDto } from 'auth/auth.dto'
 

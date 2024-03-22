@@ -1,35 +1,8 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Param,
-  Post,
-  UsePipes,
-  ValidationPipe
-} from '@nestjs/common'
-import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-  ApiUnauthorizedResponse
-} from '@nestjs/swagger'
+import * as NestjsCommon from '@nestjs/common'
+import * as NestjsSwagger from '@nestjs/swagger'
 
 import { CurrentUser } from 'decorators/user.decorator'
-import {
-  DrinkByIdResponseExample,
-  InvalidObjectIdResponseExample,
-  OwnDrinkResponseExample,
-  UnauthorizedResponseExample,
-  UserIsNot18YearsOldResponseExample,
-  UserNotFoundResponseExample
-} from 'examples'
+import * as Examples from 'examples'
 import { IsObjectIdPipe } from 'nestjs-object-id'
 
 import { Auth } from 'guards/auth.guard'
@@ -37,43 +10,45 @@ import { Auth } from 'guards/auth.guard'
 import { CreateOwnDrinkDto } from './own-drink.dto'
 import { OwnDrinkService } from './own-drink.service'
 
-@Controller()
+@NestjsCommon.Controller()
+@NestjsSwagger.ApiBearerAuth()
+@NestjsSwagger.ApiUnauthorizedResponse(Examples.UnauthorizedResponseExample)
+@NestjsSwagger.ApiTags('Drinks')
 @Auth()
-@ApiBearerAuth()
-@ApiUnauthorizedResponse(UnauthorizedResponseExample)
-@ApiTags('Drinks')
 export class OwnDrinkController {
   constructor(private readonly ownDrinkService: OwnDrinkService) {}
 
-  @Get()
-  @ApiOperation({ summary: 'Get all own drinks' })
-  @ApiOkResponse(DrinkByIdResponseExample)
-  @ApiNotFoundResponse(UserNotFoundResponseExample)
+  @NestjsCommon.Get()
+  @NestjsSwagger.ApiOperation({ summary: 'Get all own drinks' })
+  @NestjsSwagger.ApiOkResponse(Examples.DrinkByIdResponseExample)
+  @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
   getAllOwnDrinks(@CurrentUser('id') userId: string) {
     return this.ownDrinkService.getAllOwnDrinks(userId)
   }
 
-  @UsePipes(new ValidationPipe())
-  @Post('add')
-  @ApiOperation({ summary: 'Add own drink' })
-  @ApiCreatedResponse(OwnDrinkResponseExample)
-  @ApiBadRequestResponse(UserIsNot18YearsOldResponseExample)
-  @ApiNotFoundResponse(UserNotFoundResponseExample)
+  @NestjsCommon.UsePipes(new NestjsCommon.ValidationPipe())
+  @NestjsCommon.Post('add')
+  @NestjsSwagger.ApiOperation({ summary: 'Add own drink' })
+  @NestjsSwagger.ApiCreatedResponse(Examples.OwnDrinkResponseExample)
+  @NestjsSwagger.ApiBadRequestResponse(
+    Examples.UserIsNot18YearsOldResponseExample
+  )
+  @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
   addOwnDrink(
-    @Body() dto: CreateOwnDrinkDto,
+    @NestjsCommon.Body() dto: CreateOwnDrinkDto,
     @CurrentUser('id') userId: string
   ) {
     return this.ownDrinkService.addOwnDrink(dto, userId)
   }
 
-  @Delete('remove/:id')
-  @HttpCode(204)
-  @ApiOperation({ summary: 'Remove own drink' })
-  @ApiNoContentResponse({ description: 'No content' })
-  @ApiBadRequestResponse(InvalidObjectIdResponseExample)
-  @ApiNotFoundResponse(UserNotFoundResponseExample)
+  @NestjsCommon.Delete('remove/:id')
+  @NestjsCommon.HttpCode(204)
+  @NestjsSwagger.ApiOperation({ summary: 'Remove own drink' })
+  @NestjsSwagger.ApiNoContentResponse({ description: 'No content' })
+  @NestjsSwagger.ApiBadRequestResponse(Examples.InvalidObjectIdResponseExample)
+  @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
   removeOwnDrink(
-    @Param('id', IsObjectIdPipe) id: string,
+    @NestjsCommon.Param('id', IsObjectIdPipe) id: string,
     @CurrentUser('id') userId: string
   ) {
     return this.ownDrinkService.removeOwnDrink(id, userId)

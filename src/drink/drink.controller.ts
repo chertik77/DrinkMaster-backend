@@ -1,20 +1,8 @@
-import { Controller, Get, Param, Query, ValidationPipe } from '@nestjs/common'
-import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-  ApiUnauthorizedResponse
-} from '@nestjs/swagger'
+import * as NestjsCommon from '@nestjs/common'
+import * as NestjsSwagger from '@nestjs/swagger'
 
 import { CurrentUser } from 'decorators/user.decorator'
-import {
-  DrinkByIdResponseExample,
-  InvalidObjectIdResponseExample,
-  SearchDrinksResponseExample,
-  UnauthorizedResponseExample
-} from 'examples'
+import * as Examples from 'examples'
 import { IsObjectIdPipe } from 'nestjs-object-id'
 
 import { Auth } from 'guards/auth.guard'
@@ -22,20 +10,20 @@ import { Auth } from 'guards/auth.guard'
 import { SearchDrinksDto } from './drink.dto'
 import { DrinkService } from './drink.service'
 
-@Controller()
+@NestjsCommon.Controller()
 @Auth()
-@ApiBearerAuth()
-@ApiUnauthorizedResponse(UnauthorizedResponseExample)
-@ApiTags('Drinks')
+@NestjsSwagger.ApiBearerAuth()
+@NestjsSwagger.ApiUnauthorizedResponse(Examples.UnauthorizedResponseExample)
+@NestjsSwagger.ApiTags('Drinks')
 export class DrinkController {
   constructor(private readonly drinkService: DrinkService) {}
 
-  @Get()
-  @ApiOkResponse(SearchDrinksResponseExample)
-  @ApiOperation({ summary: 'Get all drinks' })
+  @NestjsCommon.Get()
+  @NestjsSwagger.ApiOkResponse(Examples.SearchDrinksResponseExample)
+  @NestjsSwagger.ApiOperation({ summary: 'Get all drinks' })
   getAllDrinks(
-    @Query(
-      new ValidationPipe({
+    @NestjsCommon.Query(
+      new NestjsCommon.ValidationPipe({
         transform: true,
         transformOptions: { enableImplicitConversion: true },
         forbidNonWhitelisted: true,
@@ -48,18 +36,18 @@ export class DrinkController {
     return this.drinkService.getAllDrinks(query, userId)
   }
 
-  @Get('popular')
-  @ApiOkResponse(DrinkByIdResponseExample)
-  @ApiOperation({ summary: 'Get all popular drinks' })
+  @NestjsCommon.Get('popular')
+  @NestjsSwagger.ApiOkResponse(Examples.DrinkByIdResponseExample)
+  @NestjsSwagger.ApiOperation({ summary: 'Get all popular drinks' })
   getPopularDrinks() {
     return this.drinkService.getMostFrequentFavoriteDrinks()
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Get drink by id' })
-  @ApiOkResponse(DrinkByIdResponseExample)
-  @ApiBadRequestResponse(InvalidObjectIdResponseExample)
-  getDrinkById(@Param('id', IsObjectIdPipe) id: string) {
+  @NestjsCommon.Get(':id')
+  @NestjsSwagger.ApiOperation({ summary: 'Get drink by id' })
+  @NestjsSwagger.ApiOkResponse(Examples.DrinkByIdResponseExample)
+  @NestjsSwagger.ApiBadRequestResponse(Examples.InvalidObjectIdResponseExample)
+  getDrinkById(@NestjsCommon.Param('id', IsObjectIdPipe) id: string) {
     return this.drinkService.getDrinkById(id)
   }
 }

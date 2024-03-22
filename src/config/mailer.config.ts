@@ -1,6 +1,10 @@
+import type { MailerOptions } from '@nestjs-modules/mailer'
+
 import { ConfigService } from '@nestjs/config'
 
-export const getMailerConfig = async (configService: ConfigService) => ({
+export const getMailerConfig = async (
+  configService: ConfigService
+): Promise<MailerOptions> => ({
   transport: {
     host: configService.get('MAILER_HOST'),
     port: configService.get('MAILER_PORT'),

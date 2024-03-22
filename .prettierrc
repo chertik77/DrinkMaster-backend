@@ -27,6 +27,8 @@
     "",
     "^(config|guards|schemas)(/.*)?$",
     "",
+    "^examples/(.*)$",
+    "",
     "^[.]"
   ],
   "plugins": ["@ianvs/prettier-plugin-sort-imports"]

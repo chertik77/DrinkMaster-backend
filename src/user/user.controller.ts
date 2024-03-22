@@ -1,70 +1,48 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  Param,
-  Post,
-  Put,
-  UsePipes,
-  ValidationPipe
-} from '@nestjs/common'
-import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
-  ApiBody,
-  ApiCreatedResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-  ApiUnauthorizedResponse
-} from '@nestjs/swagger'
+import * as NestjsCommon from '@nestjs/common'
+import * as NestjsSwagger from '@nestjs/swagger'
 
-import {
-  UnauthorizedResponseExample,
-  UserBadRequestResponseExample,
-  UserLetterResponseExample,
-  UserNotFoundResponseExample,
-  UserResponseExample
-} from 'examples'
+import * as Examples from 'examples'
 
 import { Auth } from 'guards/auth.guard'
 
 import { UpdateUserDto } from './user.dto'
 import { UserService } from './user.service'
 
-@Controller('user')
+@NestjsCommon.Controller('user')
+@NestjsSwagger.ApiTags('User')
+@NestjsSwagger.ApiBearerAuth()
+@NestjsCommon.UsePipes(new NestjsCommon.ValidationPipe())
+@NestjsSwagger.ApiUnauthorizedResponse(Examples.UnauthorizedResponseExample)
+@NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
 @Auth()
-@ApiTags('User')
-@ApiBearerAuth()
-@UsePipes(new ValidationPipe())
-@ApiUnauthorizedResponse(UnauthorizedResponseExample)
-@ApiNotFoundResponse(UserNotFoundResponseExample)
 export class UserController {
   constructor(private readonly usersService: UserService) {}
 
-  @HttpCode(200)
-  @Put(':id')
-  @ApiOkResponse(UserResponseExample)
-  @ApiOperation({ summary: 'Update user' })
-  @ApiBadRequestResponse(UserBadRequestResponseExample)
-  async update(@Param('id') id: string, @Body() dto: UpdateUserDto) {
+  @NestjsCommon.HttpCode(200)
+  @NestjsCommon.Put(':id')
+  @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
+  @NestjsSwagger.ApiOperation({ summary: 'Update user' })
+  @NestjsSwagger.ApiBadRequestResponse(Examples.UserBadRequestResponseExample)
+  async update(
+    @NestjsCommon.Param('id') id: string,
+    @NestjsCommon.Body() dto: UpdateUserDto
+  ) {
     const updatedUser = await this.usersService.update(id, dto)
 
     return updatedUser
   }
 
-  @HttpCode(200)
-  @Post('subscribe')
-  @ApiCreatedResponse(UserLetterResponseExample)
-  @ApiOperation({ summary: 'Subscribe to our newsletter' })
-  @ApiBody({
+  @NestjsCommon.HttpCode(200)
+  @NestjsCommon.Post('subscribe')
+  @NestjsSwagger.ApiCreatedResponse(Examples.UserLetterResponseExample)
+  @NestjsSwagger.ApiOperation({ summary: 'Subscribe to our newsletter' })
+  @NestjsSwagger.ApiBody({
     schema: {
       type: 'object',
       properties: { email: { example: 'test@gmail.com' } }
     }
   })
-  async sendSubscriptionEmail(@Body('email') email: string) {
+  async sendSubscriptionEmail(@NestjsCommon.Body('email') email: string) {
     await this.usersService.sendSubscriptionEmail(email)
 
     return { message: 'User successfully subscribed to our newsletter' }

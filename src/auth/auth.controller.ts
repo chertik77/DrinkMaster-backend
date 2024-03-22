@@ -1,55 +1,28 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  Post,
-  Req,
-  Res,
-  UnauthorizedException,
-  UsePipes,
-  ValidationPipe
-} from '@nestjs/common'
-import {
-  ApiBadRequestResponse,
-  ApiBearerAuth,
-  ApiConflictResponse,
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiNotFoundResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-  ApiUnauthorizedResponse
-} from '@nestjs/swagger'
+import type { Request, Response } from 'express'
 
-import {
-  AuthResponseExample,
-  ConflictResponseExample,
-  SigninBadRequestResponseExample,
-  SignupBadRequestResponseExample,
-  UnauthorizedResponseExample,
-  UserNotFoundResponseExample
-} from 'examples'
-import { Request, Response } from 'express'
+import * as NestjsCommon from '@nestjs/common'
+import * as NestjsSwagger from '@nestjs/swagger'
+
+import * as Examples from 'examples'
 
 import { SigninDto, SignupDto } from './auth.dto'
 import { AuthService } from './auth.service'
 
-@Controller('auth')
-@ApiTags('Auth')
+@NestjsCommon.Controller('auth')
+@NestjsSwagger.ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UsePipes(new ValidationPipe())
-  @Post('signup')
-  @ApiOperation({ summary: 'Create new user' })
-  @ApiCreatedResponse(AuthResponseExample)
-  @ApiBadRequestResponse(SignupBadRequestResponseExample)
-  @ApiConflictResponse(ConflictResponseExample)
+  @NestjsCommon.UsePipes(new NestjsCommon.ValidationPipe())
+  @NestjsCommon.Post('signup')
+  @NestjsSwagger.ApiOperation({ summary: 'Create new user' })
+  @NestjsSwagger.ApiCreatedResponse(Examples.AuthResponseExample)
+  @NestjsSwagger.ApiBadRequestResponse(Examples.SignupBadRequestResponseExample)
+  @NestjsSwagger.ApiConflictResponse(Examples.ConflictResponseExample)
   async signup(
-    @Body()
+    @NestjsCommon.Body()
     dto: SignupDto,
-    @Res({ passthrough: true }) res: Response
+    @NestjsCommon.Res({ passthrough: true }) res: Response
   ) {
     const { refreshToken, ...response } = await this.authService.signup(dto)
 
@@ -58,18 +31,18 @@ export class AuthController {
     return response
   }
 
-  @UsePipes(new ValidationPipe())
-  @Post('signin')
-  @HttpCode(200)
-  @ApiOperation({ summary: 'Signin user' })
-  @ApiOkResponse(AuthResponseExample)
-  @ApiNotFoundResponse(UserNotFoundResponseExample)
-  @ApiBadRequestResponse(SigninBadRequestResponseExample)
-  @ApiUnauthorizedResponse(UnauthorizedResponseExample)
+  @NestjsCommon.UsePipes(new NestjsCommon.ValidationPipe())
+  @NestjsCommon.Post('signin')
+  @NestjsCommon.HttpCode(200)
+  @NestjsSwagger.ApiOperation({ summary: 'Signin user' })
+  @NestjsSwagger.ApiOkResponse(Examples.AuthResponseExample)
+  @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
+  @NestjsSwagger.ApiBadRequestResponse(Examples.SigninBadRequestResponseExample)
+  @NestjsSwagger.ApiUnauthorizedResponse(Examples.UnauthorizedResponseExample)
   async login(
-    @Body()
+    @NestjsCommon.Body()
     dto: SigninDto,
-    @Res({ passthrough: true }) res: Response
+    @NestjsCommon.Res({ passthrough: true }) res: Response
   ) {
     const { refreshToken, ...response } = await this.authService.signin(dto)
     this.authService.addRefreshTokenToResponse(res, refreshToken)
@@ -77,21 +50,21 @@ export class AuthController {
     return response
   }
 
-  @Post('signin/access-token')
-  @ApiOkResponse(AuthResponseExample)
-  @HttpCode(200)
-  @ApiOperation({ summary: 'Get fresh and new tokens' })
-  @ApiUnauthorizedResponse(UnauthorizedResponseExample)
+  @NestjsCommon.Post('signin/access-token')
+  @NestjsSwagger.ApiOkResponse(Examples.AuthResponseExample)
+  @NestjsCommon.HttpCode(200)
+  @NestjsSwagger.ApiOperation({ summary: 'Get fresh and new tokens' })
+  @NestjsSwagger.ApiUnauthorizedResponse(Examples.UnauthorizedResponseExample)
   async getNewTokens(
-    @Req() req: Request,
-    @Res({ passthrough: true }) res: Response
+    @NestjsCommon.Req() req: Request,
+    @NestjsCommon.Res({ passthrough: true }) res: Response
   ) {
     const refreshTokenFromCookies =
       req?.cookies[this.authService.REFRESH_TOKEN_NAME]
 
     if (!refreshTokenFromCookies) {
       this.authService.removeRefreshTokenFromResponse(res)
-      throw new UnauthorizedException('Refresh token not passed')
+      throw new NestjsCommon.UnauthorizedException('Refresh token not passed')
     }
 
     const { refreshToken, ...response } = await this.authService.getNewTokens(
@@ -103,12 +76,12 @@ export class AuthController {
     return response
   }
 
-  @HttpCode(204)
-  @Post('signout')
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Signout user' })
-  @ApiNoContentResponse({ description: 'No content' })
-  async signout(@Res({ passthrough: true }) res: Response) {
+  @NestjsCommon.HttpCode(204)
+  @NestjsCommon.Post('signout')
+  @NestjsSwagger.ApiBearerAuth()
+  @NestjsSwagger.ApiOperation({ summary: 'Signout user' })
+  @NestjsSwagger.ApiNoContentResponse({ description: 'No content' })
+  async signout(@NestjsCommon.Res({ passthrough: true }) res: Response) {
     this.authService.removeRefreshTokenFromResponse(res)
 
     return true

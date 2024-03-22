@@ -1,9 +1,10 @@
+import type { Model } from 'mongoose'
+
 import { NotFoundException } from '@nestjs/common'
 import { getModelToken } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
 import { MailerService } from '@nestjs-modules/mailer'
-import { Model } from 'mongoose'
 
 import { User } from 'schemas/user.schema'
 
