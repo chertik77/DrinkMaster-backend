@@ -2,6 +2,8 @@ import type { MailerOptions } from '@nestjs-modules/mailer'
 
 import { ConfigService } from '@nestjs/config'
 
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter'
+
 export const getMailerConfig = async (
   configService: ConfigService
 ): Promise<MailerOptions> => ({
@@ -14,7 +16,14 @@ export const getMailerConfig = async (
       pass: configService.get('MAILER_PASS')
     }
   },
+  template: {
+    dir: process.cwd() + '/templates/',
+    adapter: new HandlebarsAdapter(),
+    options: {
+      strict: true
+    }
+  },
   defaults: {
-    from: `"Drink Master Team" <${configService.get('MAILER_USER')}>`
+    from: `"No Reply" <${configService.get('MAILER_USER')}>`
   }
 })

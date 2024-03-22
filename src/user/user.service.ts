@@ -81,7 +81,10 @@ export class UserService {
     await this.mailerService.sendMail({
       to: email,
       subject: 'Subscribe to the newsletter',
-      html: '<p>You successfully subsribed to our newsletter.</p>'
+      template: 'email',
+      context: {
+        logo: 'https://iili.io/Jhzrihv.png'
+      }
     })
   }
 }
