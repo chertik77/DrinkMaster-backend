@@ -1,19 +1,18 @@
 import * as NestjsCommon from '@nestjs/common'
 import * as NestjsSwagger from '@nestjs/swagger'
 
-import { CurrentUser } from 'decorators/user.decorator'
 import * as Examples from 'examples'
 import { IsObjectIdPipe } from 'nestjs-object-id'
 
-import { Auth } from 'guards/auth.guard'
+import { Auth, CurrentUser } from 'decorators'
 
 import { FavoriteDrinkService } from './favorite-drink.service'
 
 @NestjsCommon.Controller()
-@Auth()
 @NestjsSwagger.ApiBearerAuth()
 @NestjsSwagger.ApiUnauthorizedResponse(Examples.UnauthorizedResponseExample)
 @NestjsSwagger.ApiTags('Drinks')
+@Auth()
 export class FavoriteDrinkController {
   constructor(private readonly favoriteDrinkService: FavoriteDrinkService) {}
 

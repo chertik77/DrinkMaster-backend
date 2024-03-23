@@ -1,11 +1,10 @@
 import * as NestjsCommon from '@nestjs/common'
 import * as NestjsSwagger from '@nestjs/swagger'
 
-import { CurrentUser } from 'decorators/user.decorator'
 import * as Examples from 'examples'
 import { IsObjectIdPipe } from 'nestjs-object-id'
 
-import { Auth } from 'guards/auth.guard'
+import { Auth, CurrentUser } from 'decorators'
 
 import { CreateOwnDrinkDto, EditOwnDrinkDto } from './own-drink.dto'
 import { OwnDrinkService } from './own-drink.service'

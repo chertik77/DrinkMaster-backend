@@ -3,15 +3,15 @@ import * as NestjsSwagger from '@nestjs/swagger'
 
 import * as Examples from 'examples'
 
-import { Auth } from 'guards/auth.guard'
+import { Auth } from 'decorators'
 
 import { FilterService } from './filters.service'
 
 @NestjsCommon.Controller('filters')
-@Auth()
 @NestjsSwagger.ApiTags('Filters')
 @NestjsSwagger.ApiBearerAuth()
 @NestjsSwagger.ApiUnauthorizedResponse(Examples.UnauthorizedResponseExample)
+@Auth()
 export class FilterController {
   constructor(private readonly filterService: FilterService) {}
 

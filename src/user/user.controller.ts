@@ -3,7 +3,7 @@ import * as NestjsSwagger from '@nestjs/swagger'
 
 import * as Examples from 'examples'
 
-import { Auth } from 'guards/auth.guard'
+import { Auth } from 'decorators'
 
 import { UpdateUserDto } from './user.dto'
 import { UserService } from './user.service'
