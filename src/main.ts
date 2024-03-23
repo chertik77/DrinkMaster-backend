@@ -21,7 +21,7 @@ async function bootstrap() {
   app.disable('x-powered-by')
 
   app.enableCors({
-    origin: [process.env.ALLOWED_ORIGINS!],
+    origin: process.env.ALLOWED_ORIGINS!,
     credentials: true,
     exposedHeaders: 'set-cookie'
   })
