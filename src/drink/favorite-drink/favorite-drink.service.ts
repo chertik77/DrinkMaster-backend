@@ -30,7 +30,7 @@ export class FavoriteDrinkService {
       .populate('drink')
       .exec()
 
-    return favoriteDrinks.map(f => f.drink)
+    return favoriteDrinks.flatMap(({ drink }) => drink)
   }
 
   async addDrinkToFavorite(favoriteDrinkId: string, userId: string) {
