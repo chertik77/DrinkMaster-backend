@@ -56,6 +56,11 @@ mongoose.set('toJSON', {
   transform(_, ret) {
     if (ret.password) delete ret.password
 
+    if (ret.createdAt || ret.updatedAt) {
+      delete ret.createdAt
+      delete ret.updatedAt
+    }
+
     delete ret._id
   }
 })

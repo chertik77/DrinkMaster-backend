@@ -6,7 +6,7 @@ import isEmail from 'validator/lib/isEmail'
 
 export type UserDocument = HydratedDocument<User>
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, minlength: 2 })
   name: string
