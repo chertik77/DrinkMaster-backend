@@ -56,6 +56,10 @@ _Another Modules:_
 
 - Passport Jwt: Passport strategy for authenticating with a JSON Web Token.
 
+- Cloudinary: This library provides functionality for integrating with the Cloudinary platform.
+
+- Handlebars: Popular templating engine.
+
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
@@ -75,6 +79,12 @@ To run this project, you will need to add the following environment variables to
 `MAILER_PORT`
 
 `MAILER_HOST`
+
+`CLOUDINARY_CLOUD_NAME`
+
+`CLOUDINARY_API_KEY`
+
+`CLOUDINARY_API_SECRET`
 
 ## Run Locally
 
