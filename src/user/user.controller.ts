@@ -22,7 +22,6 @@ export class UserController {
   @NestjsCommon.Get('profile')
   @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Get user profile' })
-  @NestjsSwagger.ApiBadRequestResponse(Examples.UserNotFoundResponseExample)
   async getUserProfile(@CurrentUser('id') userId: string) {
     const userProfile = await this.userService.getUserProfile(userId)
 
