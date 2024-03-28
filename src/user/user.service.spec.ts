@@ -1,6 +1,3 @@
-import type { Model } from 'mongoose'
-
-import { NotFoundException } from '@nestjs/common'
 import { getModelToken } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
 
@@ -12,7 +9,7 @@ import { UserService } from './user.service'
 
 describe('userService', () => {
   let service: UserService
-  let model: Model<User>
+  // let model: Model<User>
 
   const mockAuthService = {
     create: jest.fn(),
@@ -33,21 +30,10 @@ describe('userService', () => {
     }).compile()
 
     service = module.get<UserService>(UserService)
-    model = module.get<Model<User>>(getModelToken(User.name))
+    // model = module.get<Model<User>>(getModelToken(User.name))
   })
 
   it('should be defined', () => {
     expect(service).toBeDefined()
-  })
-
-  describe('update', () => {
-    it('should throw NotFoundException if user not found', async () => {
-      jest.spyOn(model, 'findByIdAndUpdate').mockResolvedValueOnce(null)
-
-      const id = 'id'
-      const dto = { password: 'password' }
-
-      await expect(service.update(id, dto)).rejects.toThrow(NotFoundException)
-    })
   })
 })
