@@ -20,7 +20,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @NestjsCommon.Get('profile')
-  @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
+  @NestjsSwagger.ApiOkResponse(Examples.UserProfileResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Get user profile' })
   async getUserProfile(@CurrentUser('id') userId: string) {
     const userProfile = await this.userService.getUserProfile(userId)
