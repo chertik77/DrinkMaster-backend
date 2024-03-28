@@ -4,7 +4,7 @@ import * as NestjsSwagger from '@nestjs/swagger'
 
 import * as Examples from 'examples'
 
-import { Auth } from 'decorators'
+import { Auth, CurrentUser } from 'decorators'
 
 import { UpdateUserDto } from './user.dto'
 import { UserService } from './user.service'
@@ -17,7 +17,17 @@ import { UserService } from './user.service'
 @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
 @Auth()
 export class UserController {
-  constructor(private readonly usersService: UserService) {}
+  constructor(private readonly userService: UserService) {}
+
+  @NestjsCommon.Get('profile')
+  @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
+  @NestjsSwagger.ApiOperation({ summary: 'Get user profile' })
+  @NestjsSwagger.ApiBadRequestResponse(Examples.UserNotFoundResponseExample)
+  async getUserProfile(@CurrentUser('id') userId: string) {
+    const userProfile = await this.userService.getUserProfile(userId)
+
+    return userProfile
+  }
 
   @NestjsCommon.HttpCode(200)
   @NestjsCommon.Put(':id')
@@ -36,7 +46,7 @@ export class UserController {
     )
     file: Express.Multer.File
   ) {
-    const updatedUser = await this.usersService.update(file, id, dto)
+    const updatedUser = await this.userService.update(file, id, dto)
 
     return updatedUser
   }
@@ -52,7 +62,7 @@ export class UserController {
     }
   })
   async sendSubscriptionEmail(@NestjsCommon.Body('email') email: string) {
-    await this.usersService.sendSubscriptionEmail(email)
+    await this.userService.sendSubscriptionEmail(email)
 
     return { message: 'User successfully subscribed to our newsletter' }
   }

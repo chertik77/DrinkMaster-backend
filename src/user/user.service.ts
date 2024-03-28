@@ -24,6 +24,14 @@ export class UserService {
     private readonly mailerService: MailerService
   ) {}
 
+  async getUserProfile(id: string) {
+    const user = await this.findById(id)
+
+    if (!user) throw new NotFoundException('User not found')
+
+    return user
+  }
+
   async update(file: Express.Multer.File, id: string, dto: UpdateUserDto) {
     let data = dto
 
@@ -76,7 +84,7 @@ export class UserService {
   }
 
   async isUser18YearsOld(id: string) {
-    const user = await this.userModel.findById(id)
+    const user = await this.findById(id)
 
     if (!user) throw new NotFoundException('User not found')
 
