@@ -19,7 +19,7 @@ export class OwnDrinkController {
 
   @NestjsCommon.Get()
   @NestjsSwagger.ApiOperation({ summary: 'Get all own drinks' })
-  @NestjsSwagger.ApiOkResponse(Examples.DrinkByIdResponseExample)
+  @NestjsSwagger.ApiOkResponse(Examples.OwnDrinksResponseExample)
   @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
   getAllOwnDrinks(@CurrentUser('id') userId: string) {
     return this.ownDrinkService.getAllOwnDrinks(userId)

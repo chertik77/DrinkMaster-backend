@@ -1,4 +1,5 @@
 import * as NestjsCommon from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import * as NestjsSwagger from '@nestjs/swagger'
 
 import * as Examples from 'examples'
@@ -20,14 +21,22 @@ export class UserController {
 
   @NestjsCommon.HttpCode(200)
   @NestjsCommon.Put(':id')
+  @NestjsCommon.UseInterceptors(FileInterceptor('avatar'))
   @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Update user' })
   @NestjsSwagger.ApiBadRequestResponse(Examples.UserBadRequestResponseExample)
   async update(
     @NestjsCommon.Param('id') id: string,
-    @NestjsCommon.Body() dto: UpdateUserDto
+    @NestjsCommon.Body() dto: UpdateUserDto,
+    @NestjsCommon.UploadedFile(
+      new NestjsCommon.ParseFilePipeBuilder()
+        .addFileTypeValidator({ fileType: /(jpeg|jpg|png|webp)/ })
+        .addMaxSizeValidator({ maxSize: 100000, message: 'File too large' })
+        .build({ errorHttpStatusCode: 422 })
+    )
+    file: Express.Multer.File
   ) {
-    const updatedUser = await this.usersService.update(id, dto)
+    const updatedUser = await this.usersService.update(file, id, dto)
 
     return updatedUser
   }

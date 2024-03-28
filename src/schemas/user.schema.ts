@@ -28,6 +28,12 @@ export class User {
 
   @Prop({ required: true })
   dateOfBirth: Date
+
+  @Prop({
+    default:
+      'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png'
+  })
+  avatarURL: string
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

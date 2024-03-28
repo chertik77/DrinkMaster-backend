@@ -7,6 +7,7 @@ import { MailerModule } from '@nestjs-modules/mailer'
 import { getMailerConfig } from 'config'
 import { User, UserSchema } from 'schemas'
 
+import { CloudinaryProvider } from './cloudinary.provider'
 import { UserController } from './user.controller'
 import { UserService } from './user.service'
 
@@ -20,7 +21,7 @@ import { UserService } from './user.service'
     })
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, CloudinaryProvider],
   exports: [UserService]
 })
 export class UserModule {}

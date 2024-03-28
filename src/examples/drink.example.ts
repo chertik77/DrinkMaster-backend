@@ -313,3 +313,81 @@ export const InvalidObjectIdResponseExample = {
     }
   }
 }
+
+export const FavoriteDrinksResponseExample = {
+  content: {
+    'application/json': {
+      example: [
+        {
+          drink: 'Orange Crush',
+          drinkAlternate: 'Sorry, not specified',
+          tags: 'Shot,Alcoholic',
+          video: 'Sorry, not specified',
+          category: 'Shot',
+          IBA: 'Sorry, not specified',
+          alcoholic: 'Alcoholic',
+          glass: 'Shot glass',
+          description:
+            'Orange Crush is a citrusy and effervescent cocktail that combines the flavors of orange vodka and fresh orange juice. It is made by muddling fresh orange slices with sugar, adding orange vodka and ice, and topping it off with sparkling water. The result is a bright and refreshing drink that is perfect for summer gatherings and brunches.',
+          instructions: 'Add all ingredients to tumbler-Pour as shot',
+          instructionsES:
+            'Agregue todos los ingredientes al vaso, vierta como se toma',
+          instructionsDE:
+            'Geben Sie alle Zutaten in den Tumbler-Pour als Shot.',
+          instructionsFR:
+            'Ajouter tous les ingrédients au gobelet-Verser comme le coup',
+          instructionsIT:
+            'Aggiungere tutti gli ingredienti al tumbler-Versare come uno shot',
+          instructionsRU: 'Добавьте все ингредиенты в стакан-налейте как шот',
+          instructionsPL:
+            'Dodaj wszystkie składniki do kubka - wlej jak strzał',
+          instructionsUK:
+            'Додайте всі інгредієнти в стакан - налийте як знімок',
+          drinkThumb:
+            'https://ftp.goit.study/img/drinkify/recipes/Orange_Crush.jpg',
+          ingredients: [
+            {
+              title: 'Vodka',
+              measure: '1 oz ',
+              ingredientId: '64aebb7f82d96cc69e0eb4b9'
+            },
+            {
+              title: 'Triple sec',
+              measure: '1 oz ',
+              ingredientId: '64aebb7f82d96cc69e0eb4ac'
+            },
+            {
+              title: 'Orange juice',
+              measure: '1 oz ',
+              ingredientId: '64f1d5c069d8333cf130fb3d'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+
+export const OwnDrinksResponseExample = {
+  content: {
+    'application/json': {
+      example: [
+        {
+          title: 'Martini',
+          description: 'A refreshing and citrusy cocktail with a hint of mint.',
+          drinkThumb: 'https://ftp.goit.study/img/drinkify/recipes/Quentin.jpg',
+          category: 'Ordinary Drink',
+          glass: 'Cocktail glass',
+          alcoholic: 'Alcoholic',
+          portionCount: 1,
+          ingredients: [
+            { title: 'Vodka', measure: '50ml' },
+            { title: 'Lemon', measure: '1' }
+          ],
+          owner: '65e7a45e583124bf6afe431c',
+          id: '65e7a45e583124bf6afe431c'
+        }
+      ]
+    }
+  }
+}

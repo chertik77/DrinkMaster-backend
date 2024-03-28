@@ -26,7 +26,7 @@ export class FavoriteDrinkService {
     if (!user) throw new NotFoundException('User not found')
 
     const favoriteDrinks = await this.favoriteDrinkModel
-      .find({ owner: userId })
+      .find({ owner: userId }, 'drink')
       .populate('drink')
       .exec()
 

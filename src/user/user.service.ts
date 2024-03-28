@@ -1,10 +1,15 @@
 import type { Model } from 'mongoose'
 
-import { Injectable, NotFoundException } from '@nestjs/common'
+import {
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException
+} from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 
 import { MailerService } from '@nestjs-modules/mailer'
 import { hash } from 'argon2'
+import { v2 } from 'cloudinary'
 
 import { SignupDto } from 'auth/auth.dto'
 
@@ -19,8 +24,22 @@ export class UserService {
     private readonly mailerService: MailerService
   ) {}
 
-  async update(id: string, dto: UpdateUserDto) {
+  async update(file: Express.Multer.File, id: string, dto: UpdateUserDto) {
     let data = dto
+
+    let avatarURL
+
+    if (file) {
+      await new Promise(resolve => {
+        v2.uploader
+          .upload_stream((error, uploadResult) => {
+            if (error) throw new UnprocessableEntityException(error.message)
+
+            return resolve((avatarURL = uploadResult?.url))
+          })
+          .end(file.buffer)
+      })
+    }
 
     if (dto.password) {
       data = { ...dto, password: await hash(dto.password) }
@@ -28,7 +47,7 @@ export class UserService {
 
     const user = await this.userModel.findByIdAndUpdate(
       id,
-      { ...data, userTheme: data.theme },
+      { ...data, userTheme: data.theme, avatarURL },
       { new: true }
     )
 

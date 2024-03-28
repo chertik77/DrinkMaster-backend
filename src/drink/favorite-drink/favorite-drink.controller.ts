@@ -18,7 +18,7 @@ export class FavoriteDrinkController {
 
   @NestjsCommon.Get()
   @NestjsSwagger.ApiOperation({ summary: 'Get all favorite drinks' })
-  @NestjsSwagger.ApiOkResponse(Examples.DrinkByIdResponseExample)
+  @NestjsSwagger.ApiOkResponse(Examples.FavoriteDrinksResponseExample)
   @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
   async getAllFavorites(@CurrentUser('id') userId: string) {
     return this.favoriteDrinkService.getAllFavoriteDrinks(userId)
