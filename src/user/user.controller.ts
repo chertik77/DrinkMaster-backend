@@ -41,7 +41,7 @@ export class UserController {
       new NestjsCommon.ParseFilePipeBuilder()
         .addFileTypeValidator({ fileType: /(jpeg|jpg|png|webp)/ })
         .addMaxSizeValidator({ maxSize: 100000, message: 'File too large' })
-        .build({ errorHttpStatusCode: 422 })
+        .build({ errorHttpStatusCode: 422, fileIsRequired: false })
     )
     file: Express.Multer.File
   ) {
