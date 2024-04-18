@@ -33,7 +33,6 @@ export class UserController {
   @NestjsCommon.UseInterceptors(FileInterceptor('avatar'))
   @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Update user' })
-  @NestjsSwagger.ApiBadRequestResponse(Examples.UserBadRequestResponseExample)
   async update(
     @NestjsCommon.Param('id') id: string,
     @NestjsCommon.Body() dto: UpdateUserDto,

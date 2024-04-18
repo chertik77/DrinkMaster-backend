@@ -23,7 +23,7 @@ async function bootstrap() {
   app.enableCors({
     origin: process.env.ALLOWED_ORIGINS!,
     credentials: true,
-    exposedHeaders: 'set-cookie'
+    exposedHeaders: 'Set-Cookie'
   })
 
   const config = new DocumentBuilder()
@@ -52,14 +52,8 @@ bootstrap()
 
 mongoose.set('toJSON', {
   versionKey: false,
-  virtuals: true,
   transform(_, ret) {
     if (ret.password) delete ret.password
-
-    if (ret.createdAt || ret.updatedAt) {
-      delete ret.createdAt
-      delete ret.updatedAt
-    }
 
     delete ret._id
   }
