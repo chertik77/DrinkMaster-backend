@@ -30,15 +30,22 @@ export class UserController {
 
   @NestjsCommon.HttpCode(200)
   @NestjsCommon.Put(':id')
-  @NestjsCommon.UseInterceptors(FileInterceptor('avatar'))
   @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Update user' })
+  @NestjsSwagger.ApiConsumes('multipart/form-data')
+  @NestjsSwagger.ApiBody({
+    schema: {
+      type: 'object',
+      properties: { avatar: { type: 'file', format: 'binary' } }
+    }
+  })
+  @NestjsCommon.UseInterceptors(FileInterceptor('avatar'))
   async update(
     @NestjsCommon.Param('id') id: string,
     @NestjsCommon.Body() dto: UpdateUserDto,
     @NestjsCommon.UploadedFile(
       new NestjsCommon.ParseFilePipeBuilder()
-        .addFileTypeValidator({ fileType: /(jpeg|jpg|png|webp)/ })
+        .addFileTypeValidator({ fileType: /(jpeg|png|webp)/ })
         .addMaxSizeValidator({ maxSize: 100000, message: 'File too large' })
         .build({ errorHttpStatusCode: 422, fileIsRequired: false })
     )
