@@ -43,7 +43,7 @@ async function bootstrap() {
     ignoreGlobalPrefix: true
   })
 
-  SwaggerModule.setup('api', app, document)
+  SwaggerModule.setup('api/docs', app, document)
 
   await app.listen(process.env.PORT!)
 }

@@ -50,9 +50,10 @@ export class AuthController {
     return response
   }
 
-  @NestjsCommon.Post('signin/access-token')
-  @NestjsSwagger.ApiOkResponse(Examples.AuthResponseExample)
+  @NestjsCommon.Post('tokens')
+  @NestjsSwagger.ApiOkResponse(Examples.TokensResponseExample)
   @NestjsCommon.HttpCode(200)
+  @NestjsSwagger.ApiBearerAuth()
   @NestjsSwagger.ApiOperation({ summary: 'Get fresh and new tokens' })
   @NestjsSwagger.ApiUnauthorizedResponse(Examples.UnauthorizedResponseExample)
   async getNewTokens(

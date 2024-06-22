@@ -19,9 +19,9 @@ import { UserService } from './user.service'
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @NestjsCommon.Get('profile')
+  @NestjsCommon.Get('me')
   @NestjsSwagger.ApiOkResponse(Examples.UserProfileResponseExample)
-  @NestjsSwagger.ApiOperation({ summary: 'Get user profile' })
+  @NestjsSwagger.ApiOperation({ summary: 'Get current user' })
   async getUserProfile(@CurrentUser('id') userId: string) {
     const userProfile = await this.userService.getUserProfile(userId)
 
@@ -32,9 +32,11 @@ export class UserController {
   @NestjsCommon.Put(':id')
   @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Update user' })
+  @NestjsSwagger.ApiConsumes('application/json')
   @NestjsSwagger.ApiConsumes('multipart/form-data')
   @NestjsSwagger.ApiBody({
     schema: {
+      example: { theme: 'dark' },
       type: 'object',
       properties: { avatar: { type: 'file', format: 'binary' } }
     }
@@ -46,7 +48,10 @@ export class UserController {
     @NestjsCommon.UploadedFile(
       new NestjsCommon.ParseFilePipeBuilder()
         .addFileTypeValidator({ fileType: /(jpeg|png|webp)/ })
-        .addMaxSizeValidator({ maxSize: 100000, message: 'File too large' })
+        .addMaxSizeValidator({
+          maxSize: 5 * 1024 * 1024,
+          message: 'File too large'
+        })
         .build({ errorHttpStatusCode: 422, fileIsRequired: false })
     )
     file: Express.Multer.File

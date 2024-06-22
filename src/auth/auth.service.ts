@@ -53,7 +53,7 @@ export class AuthService {
 
     const tokens = this.issueTokens(user?.id)
 
-    return { user, ...tokens }
+    return tokens
   }
 
   private issueTokens(userId: string) {
