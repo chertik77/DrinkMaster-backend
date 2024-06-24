@@ -21,6 +21,10 @@ async function bootstrap() {
   app.disable('x-powered-by')
 
   app.enableCors({
+    origin: [
+      'http://localhost:7000',
+      'https://drink-master-frontend.vercel.app'
+    ],
     credentials: true,
     exposedHeaders: 'Set-Cookie'
   })

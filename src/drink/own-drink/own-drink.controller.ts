@@ -26,7 +26,7 @@ export class OwnDrinkController {
   }
 
   @NestjsCommon.UsePipes(new NestjsCommon.ValidationPipe())
-  @NestjsCommon.Post()
+  @NestjsCommon.Post('add')
   @NestjsSwagger.ApiOperation({ summary: 'Add own drink' })
   @NestjsSwagger.ApiCreatedResponse(Examples.OwnDrinkResponseExample)
   @NestjsSwagger.ApiBadRequestResponse(
@@ -54,7 +54,7 @@ export class OwnDrinkController {
     return this.ownDrinkService.updateOwnDrink(id, dto, userId)
   }
 
-  @NestjsCommon.Delete(':id')
+  @NestjsCommon.Delete('remove/:id')
   @NestjsCommon.HttpCode(204)
   @NestjsSwagger.ApiOperation({ summary: 'Remove own drink' })
   @NestjsSwagger.ApiNoContentResponse({ description: 'No content' })
