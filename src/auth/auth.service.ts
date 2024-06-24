@@ -6,6 +6,7 @@ import {
   NotFoundException,
   UnauthorizedException
 } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 
 import { verify } from 'argon2'
@@ -17,6 +18,7 @@ import { SigninDto, SignupDto } from './auth.dto'
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly configService: ConfigService,
     private readonly jwt: JwtService,
     private readonly userService: UserService
   ) {}
@@ -84,26 +86,25 @@ export class AuthService {
 
   addRefreshTokenToResponse(res: Response, refreshToken: string) {
     const expiresIn = new Date()
+
     expiresIn.setDate(expiresIn.getDate() + this.REFRESH_TOKEN_EXPIRE_DAY)
 
     res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
       httpOnly: true,
-      //TODO: Set domain to your production domain
-      domain: 'localhost',
+      secure: true,
+      domain: this.configService.get('DOMAIN'),
       expires: expiresIn,
-      sameSite: 'lax',
-      secure: true
+      sameSite: this.configService.get('COOKIES_SAME_SITE')
     })
   }
 
   removeRefreshTokenFromResponse(res: Response) {
     res.cookie(this.REFRESH_TOKEN_NAME, '', {
       httpOnly: true,
-      //TODO: Set domain to your production domain
-      domain: 'localhost',
+      secure: true,
+      domain: this.configService.get('DOMAIN'),
       expires: new Date(0),
-      sameSite: 'lax',
-      secure: true
+      sameSite: this.configService.get('COOKIES_SAME_SITE')
     })
   }
 }
