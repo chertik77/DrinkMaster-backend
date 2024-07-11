@@ -24,7 +24,7 @@ export class FavoriteDrinkController {
     return this.favoriteDrinkService.getAllFavoriteDrinks(userId)
   }
 
-  @NestjsCommon.Post('add/:id')
+  @NestjsCommon.Post(':id')
   @NestjsSwagger.ApiOperation({ summary: 'Add drink to favorites' })
   @NestjsSwagger.ApiCreatedResponse(Examples.DrinkByIdResponseExample)
   @NestjsSwagger.ApiBadRequestResponse(
@@ -38,7 +38,7 @@ export class FavoriteDrinkController {
     return this.favoriteDrinkService.addDrinkToFavorite(id, userId)
   }
 
-  @NestjsCommon.Delete('remove/:id')
+  @NestjsCommon.Delete(':id')
   @NestjsCommon.HttpCode(204)
   @NestjsSwagger.ApiOperation({ summary: 'Remove drink from favorites' })
   @NestjsSwagger.ApiNoContentResponse({ description: 'No content' })

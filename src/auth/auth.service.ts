@@ -92,8 +92,8 @@ export class AuthService {
     res.cookie(this.REFRESH_TOKEN_NAME, refreshToken, {
       httpOnly: true,
       secure: true,
-      domain: this.configService.get('DOMAIN'),
       expires: expiresIn,
+      domain: this.configService.get('DOMAIN'),
       sameSite: this.configService.get('COOKIES_SAME_SITE')
     })
   }
@@ -102,8 +102,8 @@ export class AuthService {
     res.cookie(this.REFRESH_TOKEN_NAME, '', {
       httpOnly: true,
       secure: true,
-      domain: this.configService.get('DOMAIN'),
       expires: new Date(0),
+      domain: this.configService.get('DOMAIN'),
       sameSite: this.configService.get('COOKIES_SAME_SITE')
     })
   }

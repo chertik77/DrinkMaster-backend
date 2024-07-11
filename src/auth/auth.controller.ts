@@ -45,6 +45,7 @@ export class AuthController {
     @NestjsCommon.Res({ passthrough: true }) res: Response
   ) {
     const { refreshToken, ...response } = await this.authService.signin(dto)
+
     this.authService.addRefreshTokenToResponse(res, refreshToken)
 
     return response
