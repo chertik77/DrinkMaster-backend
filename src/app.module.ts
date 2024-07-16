@@ -14,7 +14,7 @@ import { UserModule } from './user/user.module'
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.DB_HOST!),
+    MongooseModule.forRoot(process.env.DATABASE_URL!),
     AuthModule,
     UserModule,
     FilterModule,
