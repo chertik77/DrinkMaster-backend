@@ -29,7 +29,7 @@ export class UserController {
   }
 
   @NestjsCommon.HttpCode(200)
-  @NestjsCommon.Put(':id')
+  @NestjsCommon.Put()
   @NestjsSwagger.ApiOkResponse(Examples.UserResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Update user' })
   @NestjsSwagger.ApiConsumes('application/json')
@@ -43,7 +43,7 @@ export class UserController {
   })
   @NestjsCommon.UseInterceptors(FileInterceptor('avatar'))
   async update(
-    @NestjsCommon.Param('id') id: string,
+    @CurrentUser('id') userId: string,
     @NestjsCommon.Body() dto: UpdateUserDto,
     @NestjsCommon.UploadedFile(
       new NestjsCommon.ParseFilePipeBuilder()
@@ -56,7 +56,7 @@ export class UserController {
     )
     file: Express.Multer.File
   ) {
-    const updatedUser = await this.userService.update(file, id, dto)
+    const updatedUser = await this.userService.update(file, userId, dto)
 
     return updatedUser
   }

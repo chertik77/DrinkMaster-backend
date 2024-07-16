@@ -1,9 +1,9 @@
 import type { JwtModuleOptions } from '@nestjs/jwt'
 
-import { ConfigService } from '@nestjs/config'
+import { TypedConfigService } from 'types'
 
 export const getJwtConfig = async (
-  configService: ConfigService
+  configService: TypedConfigService
 ): Promise<JwtModuleOptions> => ({
   secret: configService.get('JWT_SECRET')
 })

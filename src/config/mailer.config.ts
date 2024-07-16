@@ -1,11 +1,10 @@
 import type { MailerOptions } from '@nestjs-modules/mailer'
 
-import { ConfigService } from '@nestjs/config'
-
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter'
+import { TypedConfigService } from 'types'
 
 export const getMailerConfig = async (
-  configService: ConfigService
+  configService: TypedConfigService
 ): Promise<MailerOptions> => ({
   transport: {
     host: configService.get('MAILER_HOST'),
@@ -19,9 +18,7 @@ export const getMailerConfig = async (
   template: {
     dir: process.cwd() + '/templates/',
     adapter: new HandlebarsAdapter(),
-    options: {
-      strict: true
-    }
+    options: { strict: true }
   },
   defaults: {
     from: `"No Reply" <${configService.get('MAILER_USER')}>`

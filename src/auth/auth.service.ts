@@ -6,10 +6,10 @@ import {
   NotFoundException,
   UnauthorizedException
 } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 
 import { verify } from 'argon2'
+import { TypedConfigService } from 'types'
 
 import { UserService } from 'user/user.service'
 
@@ -18,7 +18,7 @@ import { SigninDto, SignupDto } from './auth.dto'
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly configService: ConfigService,
+    private readonly configService: TypedConfigService,
     private readonly jwt: JwtService,
     private readonly userService: UserService
   ) {}
