@@ -21,7 +21,7 @@ export class FavoriteDrinkController {
   @NestjsSwagger.ApiOkResponse(Examples.FavoriteDrinksResponseExample)
   @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
   async getAllFavorites(@CurrentUser('id') userId: string) {
-    return this.favoriteDrinkService.getAllFavoriteDrinks(userId)
+    return await this.favoriteDrinkService.getAllFavoriteDrinks(userId)
   }
 
   @NestjsCommon.Post(':id')
@@ -35,7 +35,7 @@ export class FavoriteDrinkController {
     @NestjsCommon.Param('id', IsObjectIdPipe) id: string,
     @CurrentUser('id') userId: string
   ) {
-    return this.favoriteDrinkService.addDrinkToFavorite(id, userId)
+    return await this.favoriteDrinkService.addDrinkToFavorite(id, userId)
   }
 
   @NestjsCommon.Delete(':id')
@@ -44,10 +44,10 @@ export class FavoriteDrinkController {
   @NestjsSwagger.ApiNoContentResponse({ description: 'No content' })
   @NestjsSwagger.ApiBadRequestResponse(Examples.InvalidObjectIdResponseExample)
   @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
-  removeDrinkFromFavorite(
+  async removeDrinkFromFavorite(
     @NestjsCommon.Param('id', IsObjectIdPipe) id: string,
     @CurrentUser('id') userId: string
   ) {
-    return this.favoriteDrinkService.removeDrinkFromFavorite(id, userId)
+    return await this.favoriteDrinkService.removeDrinkFromFavorite(id, userId)
   }
 }

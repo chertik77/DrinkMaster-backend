@@ -28,7 +28,6 @@ export class FavoriteDrinkService {
     const favoriteDrinks = await this.favoriteDrinkModel
       .find({ owner: userId }, 'drink')
       .populate('drink')
-      .exec()
 
     return favoriteDrinks.flatMap(({ drink }) => drink)
   }

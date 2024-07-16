@@ -20,7 +20,7 @@ export class DrinkController {
   @NestjsCommon.Get()
   @NestjsSwagger.ApiOkResponse(Examples.SearchDrinksResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Get all drinks' })
-  getAllDrinks(
+  async getAllDrinks(
     @NestjsCommon.Query(
       new NestjsCommon.ValidationPipe({
         transform: true,
@@ -32,21 +32,21 @@ export class DrinkController {
     query: SearchDrinksDto,
     @CurrentUser('id') userId: string
   ) {
-    return this.drinkService.getAllDrinks(query, userId)
+    return await this.drinkService.getAllDrinks(query, userId)
   }
 
   @NestjsCommon.Get('popular')
   @NestjsSwagger.ApiOkResponse(Examples.DrinkByIdResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Get all popular drinks' })
-  getPopularDrinks() {
-    return this.drinkService.getMostFrequentFavoriteDrinks()
+  async getPopularDrinks() {
+    return await this.drinkService.getMostFrequentFavoriteDrinks()
   }
 
   @NestjsCommon.Get(':id')
   @NestjsSwagger.ApiOperation({ summary: 'Get drink by id' })
   @NestjsSwagger.ApiOkResponse(Examples.DrinkByIdResponseExample)
   @NestjsSwagger.ApiBadRequestResponse(Examples.InvalidObjectIdResponseExample)
-  getDrinkById(@NestjsCommon.Param('id', IsObjectIdPipe) id: string) {
-    return this.drinkService.getDrinkById(id)
+  async getDrinkById(@NestjsCommon.Param('id', IsObjectIdPipe) id: string) {
+    return await this.drinkService.getDrinkById(id)
   }
 }

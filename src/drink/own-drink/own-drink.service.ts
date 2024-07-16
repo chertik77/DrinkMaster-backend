@@ -26,7 +26,7 @@ export class OwnDrinkService {
 
     if (!user) throw new NotFoundException('User not found')
 
-    const ownDrinks = await this.ownDrinkModel.find({ owner: userId }).exec()
+    const ownDrinks = await this.ownDrinkModel.find({ owner: userId })
 
     return ownDrinks
   }

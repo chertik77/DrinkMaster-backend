@@ -23,9 +23,7 @@ export class UserController {
   @NestjsSwagger.ApiOkResponse(Examples.UserProfileResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Get current user' })
   async getUserProfile(@CurrentUser('id') userId: string) {
-    const userProfile = await this.userService.getUserProfile(userId)
-
-    return userProfile
+    return await this.userService.getUserProfile(userId)
   }
 
   @NestjsCommon.HttpCode(200)
@@ -56,9 +54,7 @@ export class UserController {
     )
     file: Express.Multer.File
   ) {
-    const updatedUser = await this.userService.update(file, userId, dto)
-
-    return updatedUser
+    return await this.userService.update(file, userId, dto)
   }
 
   @NestjsCommon.HttpCode(200)

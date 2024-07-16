@@ -21,8 +21,8 @@ export class OwnDrinkController {
   @NestjsSwagger.ApiOperation({ summary: 'Get all own drinks' })
   @NestjsSwagger.ApiOkResponse(Examples.OwnDrinksResponseExample)
   @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
-  getAllOwnDrinks(@CurrentUser('id') userId: string) {
-    return this.ownDrinkService.getAllOwnDrinks(userId)
+  async getAllOwnDrinks(@CurrentUser('id') userId: string) {
+    return await this.ownDrinkService.getAllOwnDrinks(userId)
   }
 
   @NestjsCommon.UsePipes(new NestjsCommon.ValidationPipe())
@@ -33,11 +33,11 @@ export class OwnDrinkController {
     Examples.UserIsNot18YearsOldResponseExample
   )
   @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
-  addOwnDrink(
+  async addOwnDrink(
     @NestjsCommon.Body() dto: CreateOwnDrinkDto,
     @CurrentUser('id') userId: string
   ) {
-    return this.ownDrinkService.addOwnDrink(dto, userId)
+    return await this.ownDrinkService.addOwnDrink(dto, userId)
   }
 
   @NestjsCommon.UsePipes(new NestjsCommon.ValidationPipe())
@@ -46,12 +46,12 @@ export class OwnDrinkController {
   @NestjsSwagger.ApiBody({ schema: { example: { title: 'Red Joi' } } })
   @NestjsSwagger.ApiOkResponse(Examples.OwnDrinkEditedResponseExample)
   @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
-  updateOwnDrink(
+  async updateOwnDrink(
     @NestjsCommon.Param('id', IsObjectIdPipe) id: string,
     @NestjsCommon.Body() dto: EditOwnDrinkDto,
     @CurrentUser('id') userId: string
   ) {
-    return this.ownDrinkService.updateOwnDrink(id, dto, userId)
+    return await this.ownDrinkService.updateOwnDrink(id, dto, userId)
   }
 
   @NestjsCommon.Delete(':id')
@@ -60,10 +60,10 @@ export class OwnDrinkController {
   @NestjsSwagger.ApiNoContentResponse({ description: 'No content' })
   @NestjsSwagger.ApiBadRequestResponse(Examples.InvalidObjectIdResponseExample)
   @NestjsSwagger.ApiNotFoundResponse(Examples.UserNotFoundResponseExample)
-  removeOwnDrink(
+  async removeOwnDrink(
     @NestjsCommon.Param('id', IsObjectIdPipe) id: string,
     @CurrentUser('id') userId: string
   ) {
-    return this.ownDrinkService.removeOwnDrink(id, userId)
+    return await this.ownDrinkService.removeOwnDrink(id, userId)
   }
 }
