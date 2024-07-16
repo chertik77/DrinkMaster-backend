@@ -1,5 +1,5 @@
 export type EnvVariebles = {
-  DB_HOST: string
+  DATABASE_URL: string
   DOMAIN: string
   JWT_SECRET: string
   PORT: number
