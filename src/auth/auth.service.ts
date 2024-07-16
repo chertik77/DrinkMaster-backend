@@ -33,7 +33,7 @@ export class AuthService {
 
     const user = await this.userService.createNewUser(dto)
 
-    const tokens = this.issueTokens(user.id)
+    const tokens = this.signNewTokens(user.id)
 
     return { user, ...tokens }
   }
@@ -41,7 +41,7 @@ export class AuthService {
   async signin(dto: SigninDto) {
     const user = await this.validateUser(dto)
 
-    const tokens = this.issueTokens(user.id)
+    const tokens = this.signNewTokens(user.id)
 
     return { user, ...tokens }
   }
@@ -53,12 +53,12 @@ export class AuthService {
 
     const user = await this.userService.findById(result.id)
 
-    const tokens = this.issueTokens(user?.id)
+    const tokens = this.signNewTokens(user?.id)
 
     return tokens
   }
 
-  private issueTokens(userId: string) {
+  private signNewTokens(userId: string) {
     const data = { id: userId }
 
     const accessToken = this.jwt.sign(data, {
@@ -72,12 +72,12 @@ export class AuthService {
     return { accessToken, refreshToken }
   }
 
-  private async validateUser(dto: SigninDto) {
-    const user = await this.userService.findOneByEmail(dto.email)
+  private async validateUser({ email, password }: SigninDto) {
+    const user = await this.userService.findOneByEmail(email)
 
     if (!user) throw new NotFoundException('User not found')
 
-    const isValidPassword = await verify(user.password, dto.password)
+    const isValidPassword = await verify(user.password, password)
 
     if (!isValidPassword) throw new UnauthorizedException('Invalid password')
 
