@@ -97,16 +97,14 @@ export class UserService {
   }
 
   async sendSubscriptionEmail({ email }: SubscribeUserDto) {
-    // const user = await this.findOneByEmail(email)
+    const user = await this.findOneByEmail(email)
 
-    // if (!user) throw new NotFoundException('User not found')
+    if (!user) throw new NotFoundException('User not found')
 
-    const result = await this.mailerService.sendMail({
+    await this.mailerService.sendMail({
       to: email,
       subject: 'Subscribe to the newsletter',
       template: 'email'
     })
-
-    console.log(result)
   }
 }
