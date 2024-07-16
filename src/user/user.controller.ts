@@ -6,7 +6,7 @@ import * as Examples from 'examples'
 
 import { Auth, CurrentUser } from 'decorators'
 
-import { UpdateUserDto } from './user.dto'
+import { SubscribeUserDto, UpdateUserDto } from './user.dto'
 import { UserService } from './user.service'
 
 @NestjsCommon.Controller('user')
@@ -65,14 +65,8 @@ export class UserController {
   @NestjsCommon.Post('subscribe')
   @NestjsSwagger.ApiCreatedResponse(Examples.UserLetterResponseExample)
   @NestjsSwagger.ApiOperation({ summary: 'Subscribe to our newsletter' })
-  @NestjsSwagger.ApiBody({
-    schema: {
-      type: 'object',
-      properties: { email: { example: 'test@gmail.com' } }
-    }
-  })
-  async sendSubscriptionEmail(@NestjsCommon.Body('email') email: string) {
-    await this.userService.sendSubscriptionEmail(email)
+  async sendSubscriptionEmail(@NestjsCommon.Body() dto: SubscribeUserDto) {
+    await this.userService.sendSubscriptionEmail(dto)
 
     return { message: 'User successfully subscribed to our newsletter' }
   }

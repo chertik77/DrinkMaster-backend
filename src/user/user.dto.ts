@@ -1,4 +1,4 @@
-import { ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
 
 import {
   IsDateString,
@@ -31,4 +31,10 @@ export class UpdateUserDto {
   @IsIn(['light', 'dark'])
   @IsOptional()
   theme?: string
+}
+
+export class SubscribeUserDto {
+  @ApiProperty({ example: 'test@gmail.com' })
+  @IsEmail()
+  email: string
 }

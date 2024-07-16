@@ -1,6 +1,4 @@
-import type { ConfigService } from '@nestjs/config'
-
-type EnvVariebles = {
+export type EnvVariebles = {
   DB_HOST: string
   DOMAIN: string
   JWT_SECRET: string
@@ -17,5 +15,3 @@ type EnvVariebles = {
   CLOUDINARY_API_KEY: string
   CLOUDINARY_API_SECRET: string
 }
-
-export type TypedConfigService = ConfigService<EnvVariebles>

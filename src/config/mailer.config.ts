@@ -1,10 +1,12 @@
 import type { MailerOptions } from '@nestjs-modules/mailer'
+import type { EnvVariebles } from 'types/environment'
+
+import { ConfigService } from '@nestjs/config'
 
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter'
-import { TypedConfigService } from 'types'
 
 export const getMailerConfig = async (
-  configService: TypedConfigService
+  configService: ConfigService<EnvVariebles>
 ): Promise<MailerOptions> => ({
   transport: {
     host: configService.get('MAILER_HOST'),

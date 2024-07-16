@@ -1,15 +1,17 @@
+import type { EnvVariebles } from 'types/environment'
+
 import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { TypedConfigService } from 'types'
 
 import { UserService } from 'user/user.service'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    private readonly configService: TypedConfigService,
+    private readonly configService: ConfigService<EnvVariebles>,
     private readonly userService: UserService
   ) {
     super({

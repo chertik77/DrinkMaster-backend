@@ -15,7 +15,7 @@ import { SignupDto } from 'auth/auth.dto'
 
 import { User } from 'schemas'
 
-import { UpdateUserDto } from './user.dto'
+import { SubscribeUserDto, UpdateUserDto } from './user.dto'
 
 @Injectable()
 export class UserService {
@@ -65,14 +65,10 @@ export class UserService {
   }
 
   async createNewUser(dto: SignupDto) {
-    const hashedPassword = await hash(dto.password)
-
-    const user = await this.userModel.create({
+    return await this.userModel.create({
       ...dto,
-      password: hashedPassword
+      password: await hash(dto.password)
     })
-
-    return user
   }
 
   findById(id: string) {
@@ -100,15 +96,17 @@ export class UserService {
     return age >= 18
   }
 
-  async sendSubscriptionEmail(email: string) {
-    const user = await this.findOneByEmail(email)
+  async sendSubscriptionEmail({ email }: SubscribeUserDto) {
+    // const user = await this.findOneByEmail(email)
 
-    if (!user) throw new NotFoundException('User not found')
+    // if (!user) throw new NotFoundException('User not found')
 
-    await this.mailerService.sendMail({
+    const result = await this.mailerService.sendMail({
       to: email,
       subject: 'Subscribe to the newsletter',
       template: 'email'
     })
+
+    console.log(result)
   }
 }
