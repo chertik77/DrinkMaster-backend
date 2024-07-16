@@ -5,6 +5,8 @@ type EnvVariebles = {
   DOMAIN: string
   JWT_SECRET: string
   PORT: number
+  ACCESS_TOKEN_EXPIRES_IN: string
+  REFRESH_TOKEN_EXPIRES_IN: string
   ALLOWED_ORIGINS: string
   COOKIES_SAME_SITE: string
   MAILER_USER: string
