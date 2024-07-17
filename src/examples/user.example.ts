@@ -2,7 +2,7 @@ export const UserBadRequestResponseExample = {
   content: {
     'application/json': {
       example: {
-        message: ['dateOfBirth must be a valid ISO 8601 date string'],
+        message: ['birthdate must be a valid ISO 8601 date string'],
         error: 'Bad Request',
         statusCode: 400
       }
@@ -17,7 +17,7 @@ export const UserResponseExample = {
         user: {
           name: 'John Doe',
           email: 'test@gmail.com',
-          dateOfBirth: '2001-01-01',
+          birthdate: '2001-01-01',
           theme: 'dark',
           avatar:
             'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png',
@@ -44,7 +44,7 @@ export const UserProfileResponseExample = {
       example: {
         name: 'John Doe',
         email: 'test@gmail.com',
-        dateOfBirth: '2001-01-01',
+        birthdate: '2001-01-01',
         theme: 'light',
         avatar:
           'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png',

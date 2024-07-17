@@ -85,7 +85,7 @@ export class UserService {
     if (!user) throw new NotFoundException('User not found')
 
     const today = new Date()
-    const birthDate = new Date(user.dateOfBirth)
+    const birthDate = new Date(user.birthdate)
     const month = today.getMonth() - birthDate.getMonth()
     let age = today.getFullYear() - birthDate.getFullYear()
 

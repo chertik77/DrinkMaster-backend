@@ -10,13 +10,6 @@ export const IngredientResponseExample = {
             'https://ftp.goit.study/img/drinkify/ingredients/Light_rum-Medium.png',
           'thumb-small':
             'https://ftp.goit.study/img/drinkify/ingredients/Light_rum-Small.png',
-          abv: '40',
-          alcohol: 'Yes',
-          description:
-            'Light rums, also referred to as "silver"or "white"rums, in general, have very little flavour aside from a general sweetness. Light rums are sometimes filtered after aging to remove any colour. The majority of light rums come from Puerto Rico. Their milder flavours make them popular for use in mixed drinks, as opposed to drinking them straight. Light rums are included in some of the most popular cocktails including the Mojito and the Daiquiri.',
-          type: 'Rum',
-          flavour: 'light, sweet',
-          country: 'Puerto Rico',
           id: '64aebb7f82d96cc69e0eb4a4'
         },
         {
@@ -27,13 +20,6 @@ export const IngredientResponseExample = {
             'https://ftp.goit.study/img/drinkify/ingredients/Applejack-Medium.png',
           'thumb-small':
             'https://ftp.goit.study/img/drinkify/ingredients/Applejack-Small.png',
-          abv: '40',
-          alcohol: 'Yes',
-          description:
-            "Applejack is a strong apple-flavoured alcoholic drink produced from apples. Popular in the American colonial era, the drink's prevalence declined in the 19th and 20th centuries amid competition from other spirits.",
-          type: 'Beverage',
-          flavour: 'apples, oak',
-          country: 'United States',
           id: '64aebb7f82d96cc69e0eb4a5'
         }
       ]

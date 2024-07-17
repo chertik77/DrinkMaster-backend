@@ -27,7 +27,7 @@ export class User {
   theme: string
 
   @Prop({ required: true })
-  dateOfBirth: Date
+  birthdate: Date
 
   @Prop({
     default:

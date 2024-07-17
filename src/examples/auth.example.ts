@@ -8,7 +8,7 @@ export const AuthResponseExample = {
         user: {
           name: 'Tom',
           email: 'test@gmail.com',
-          dateOfBirth: '2001-01-01',
+          birthdate: '2001-01-01',
           theme: 'light',
           avatar:
             'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png',

@@ -17,10 +17,10 @@ export class SignupDto {
 
   @ApiProperty({ example: '2001-01-01' })
   @IsDateString()
-  dateOfBirth: string
+  birthdate: string
 }
 
 export class SigninDto extends OmitType(SignupDto, [
   'name',
-  'dateOfBirth'
+  'birthdate'
 ] as const) {}

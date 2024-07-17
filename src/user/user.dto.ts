@@ -25,7 +25,7 @@ export class UpdateUserDto {
 
   @IsDateString()
   @IsOptional()
-  dateOfBirth?: string
+  birthdate?: string
 
   @ApiPropertyOptional({ example: 'dark' })
   @IsIn(['light', 'dark'])
