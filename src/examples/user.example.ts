@@ -18,7 +18,7 @@ export const UserResponseExample = {
           name: 'John Doe',
           email: 'test@gmail.com',
           dateOfBirth: '2001-01-01',
-          userTheme: 'dark',
+          theme: 'dark',
           avatarURL:
             'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png',
           id: '65fc5e68ce24eefbd11a5113'
@@ -45,7 +45,7 @@ export const UserProfileResponseExample = {
         name: 'John Doe',
         email: 'test@gmail.com',
         dateOfBirth: '2001-01-01',
-        userTheme: 'light',
+        theme: 'light',
         avatarURL:
           'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png',
         id: '65fc5e68ce24eefbd11a5113'

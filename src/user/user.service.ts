@@ -55,7 +55,7 @@ export class UserService {
 
     const user = await this.userModel.findByIdAndUpdate(
       id,
-      { ...data, userTheme: data.theme, avatarURL },
+      { ...data, avatarURL },
       { new: true }
     )
 

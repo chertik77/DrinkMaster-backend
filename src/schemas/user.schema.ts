@@ -24,7 +24,7 @@ export class User {
   password: string
 
   @Prop({ default: 'light', enum: ['light', 'dark'] })
-  userTheme: string
+  theme: string
 
   @Prop({ required: true })
   dateOfBirth: Date
