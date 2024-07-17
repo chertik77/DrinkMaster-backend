@@ -8,7 +8,7 @@ import { User } from './user.schema'
 
 export const alcoholicEnum = ['Alcoholic', 'Non alcoholic']
 
-@Schema({ collection: 'own_drinks' })
+@Schema({ collection: 'own_drinks', versionKey: false })
 export class OwnDrink {
   @Prop({ required: true, minlength: 2 })
   title: string

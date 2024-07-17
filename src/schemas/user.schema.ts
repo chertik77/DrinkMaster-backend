@@ -6,7 +6,7 @@ import isEmail from 'validator/lib/isEmail'
 
 export type UserDocument = HydratedDocument<User>
 
-@Schema()
+@Schema({ versionKey: false })
 export class User {
   @Prop({ required: true, minlength: 2 })
   name: string
@@ -33,7 +33,7 @@ export class User {
     default:
       'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png'
   })
-  avatarURL: string
+  avatar: string
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

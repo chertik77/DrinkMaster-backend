@@ -35,7 +35,7 @@ export const glassEnum = [
   'Coupe Glass'
 ]
 
-@Schema()
+@Schema({ versionKey: false })
 export class Glass {
   @Prop()
   name: string

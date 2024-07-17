@@ -35,7 +35,7 @@ export class UserService {
   async update(file: Express.Multer.File, id: string, dto: UpdateUserDto) {
     let data = dto
 
-    let avatarURL
+    let avatar
 
     if (file) {
       await new Promise(resolve => {
@@ -43,7 +43,7 @@ export class UserService {
           .upload_stream((error, uploadResult) => {
             if (error) throw new UnprocessableEntityException(error.message)
 
-            return resolve((avatarURL = uploadResult?.url))
+            return resolve((avatar = uploadResult?.url))
           })
           .end(file.buffer)
       })
@@ -55,7 +55,7 @@ export class UserService {
 
     const user = await this.userModel.findByIdAndUpdate(
       id,
-      { ...data, avatarURL },
+      { ...data, avatar },
       { new: true }
     )
 

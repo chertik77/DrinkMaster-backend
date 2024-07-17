@@ -5,7 +5,7 @@ import { Types } from 'mongoose'
 import { categoryEnum } from './category.schema'
 import { glassEnum } from './glass.schema'
 
-@Schema()
+@Schema({ versionKey: false })
 export class Drink {
   @Prop()
   drink: string

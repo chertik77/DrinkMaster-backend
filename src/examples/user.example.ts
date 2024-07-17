@@ -19,7 +19,7 @@ export const UserResponseExample = {
           email: 'test@gmail.com',
           dateOfBirth: '2001-01-01',
           theme: 'dark',
-          avatarURL:
+          avatar:
             'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png',
           id: '65fc5e68ce24eefbd11a5113'
         }
@@ -46,7 +46,7 @@ export const UserProfileResponseExample = {
         email: 'test@gmail.com',
         dateOfBirth: '2001-01-01',
         theme: 'light',
-        avatarURL:
+        avatar:
           'https://res.cloudinary.com/dtidyjjal/image/upload/v1711641847/user_j7h0g8.png',
         id: '65fc5e68ce24eefbd11a5113'
       }
